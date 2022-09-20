@@ -52,7 +52,6 @@ int utn_getPositivo(int *pResultado, char *mensaje, char *mensajeError,
 int utn_getChar(char *pResultado, char *mensaje, char *mensajeError,
 		char minimo, char maximo, int reintentos);
 
-int PedirString(char array[], int SIZE, char mensaje[]);
 
 
 #endif /* FUNCIONESENTRADAYSALIDA_H_ */

@@ -62,8 +62,9 @@ int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,
 				break;
 			}
 		}
-		printf("%s %d", mensajeError, reintentos);
+		printf("%s %d\n", mensajeError, reintentos);
 		if (reintentos == 0) {
+			retorno=-1;
 			printf("Saliendo...");
 		}
 
@@ -116,29 +117,6 @@ int utn_getChar(char *pResultado, char *mensaje, char *mensajeError,
 	return retorno;
 }
 
-int getString(char array[], int SIZE, char mensaje[]) {
-	int retorno;
-	char buffer[1024];
-	int largoCadena;
-	retorno = -1; //Error si size es menor a 0 devuelve -1
 
-	if (SIZE > 0) {
-		printf("%s", mensaje);
-		fflush(stdin);
-		scanf("%[^\n]", buffer);
-
-		largoCadena = strlen(buffer);
-		retorno = 0;
-
-		if (SIZE > largoCadena) {
-			strcpy(array, buffer);
-			retorno = 1; //si sale bien devuelve 1
-		}
-
-	}
-
-	return retorno;
-
-}
 
 

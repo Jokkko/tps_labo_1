@@ -1,24 +1,16 @@
 /*
  ============================================================================
- Name        : TP1.c
- Author      : 
- Version     :
- Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
+Fernandes Joaquin TP1
  ============================================================================
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <string.h>
 
 #include "input.h"
 #include "Logica.h"
-#define TAM 22
 
-#define LIBRE 0
-#define OCUPADO 1
 
 int main(void) {
 	setbuf(stdout, NULL);
@@ -26,25 +18,26 @@ int main(void) {
 	int costoHospedaje = 0, costoComida = 0, costoTransporte = 0,
 			costoMantenimiento = 0;
 	int contArq = 0, contDef = 0, contMC = 0, contDel = 0;
-	int numCamiseta[TAM], estado[TAM], confederacion[TAM];
+	int numCamiseta,confederacion;
 	char respuesta;
-	int bufferNumeroCamiseta;
-	int contadorAFC=0, contadorCAF=0, contadorCONCACAF=0, contadorCONMEBOL=0,contadorUEFA=0,contadorOFC=0;
-
-	InicializarArray(estado, TAM);
-	InicializarArray(numCamiseta, TAM);
+	int contadorAFC = 0, contadorCAF = 0, contadorCONCACAF = 0,
+			contadorCONMEBOL = 0, contadorUEFA = 0, contadorOFC = 0;
+	float promedioAFC,promedioCAF,promedioCONCACAF,promedioCONMEBOL,promedioUEFA,promedioOFC;
+	int aumento;
+	int costoFinal;
 
 	do {
 		printf(
-				"Menu principal\n "
+				"\nMenu principal\n "
 						"\n1. Ingreso de los costos de Mantenimiento. \nCosto de hospedaje -> %d \nCosto de comida -> %d \nCosto de transporte -> %d "
 						"\n2. Carga de jugadores: \nCantidad de Arqueros -> %d \nCantidad de Defensores -> %d \nCantidad de Mediocampistas -> %d \nCantidad de Delanteros -> %d"
-						" \n3. Realizar todos los cálculos."
+						" \n3. Realizar todos los calculos."
 						" \n4. Informar todos los resultados."
-						" \n5. Salir."
-						"\nIngrese Opcion: ", costoHospedaje, costoComida,
+						" \n5. Salir.", costoHospedaje, costoComida,
 				costoTransporte, contArq, contDef, contMC, contDel);
-		getInt(&opcion);
+		if (utn_getNumero(&opcion, "\nIngrese opcion: ","Error ingrese un numero entre 1 y 5 Intentos restantes:", 1, 5,3) == -1) {
+			break;
+		}
 
 		switch (opcion) {
 
@@ -54,36 +47,26 @@ int main(void) {
 						"\n1. Costo de Hospedaje."
 						"\n2. Costo de Comida."
 						"\n3. Costo de Transporte."
-						"\n4. Salir."
-						"\nIngrese Opcion: ");
-				getInt(&opcionCosto);
+						"\n4. Salir.");
+				if (utn_getNumero(&opcionCosto,"\nIngrese opcion: ","Error ingrese un numero entre 1 y 4 Intentos restantes:", 1,4, 3)==-1){
+					break;
+				}
 
 				switch (opcionCosto) {
 				case 1:
-					utn_getPositivo(&costoHospedaje,
-							"\nIngrese costo de Hospedaje: ",
-							"Error ingrese un costo mayor a 0. Reintentos restantes: ",
-							3);
-					costoMantenimiento += costoHospedaje;
+					utn_getPositivo(&costoHospedaje,"\nIngrese costo de Hospedaje: ","Error ingrese un costo mayor a 0. Reintentos restantes: ",3);
+
 					break;
 				case 2:
-					utn_getPositivo(&costoComida, "\nIngrese costo de Comida: ",
-							"Error ingrese un costo mayor a 0. Reintentos restantes: ",
-							3);
-					costoMantenimiento += costoComida;
+					utn_getPositivo(&costoComida, "\nIngrese costo de Comida: ","Error ingrese un costo mayor a 0. Reintentos restantes: ",3);
+
 					break;
 				case 3:
-					utn_getPositivo(&costoTransporte,
-							"\nIngrese costo de Transporte: ",
-							"Error ingrese un costo mayor a 0. Reintentos restantes: ",
-							3);
-					costoMantenimiento += costoTransporte;
-					break;
-				case 4:
-					printf("Saliendo...\n");
+					utn_getPositivo(&costoTransporte,"\nIngrese costo de Transporte: ","Error ingrese un costo mayor a 0. Reintentos restantes: ",3);
+
 					break;
 				default:
-					printf("Opcion incorrecta.\n");
+					printf("Saliendo...\n");
 					break;
 				}
 			} while (opcionCosto != 4);
@@ -96,233 +79,226 @@ int main(void) {
 						"\n2. Defensor."
 						"\n3. Mediocampista."
 						"\n4. Delantero."
-						"\n5. Salir."
-						"\nIngrese Opcion: ");
-				getInt(&opcionCarga);
+						"\n5. Salir.");
+				if (utn_getNumero(&opcionCarga,"\nIngrese opcion: ","Error ingrese un numero entre 1 y 5 Intentos restantes:", 1,5, 3)==-1){
+					break;
+				}
 				switch (opcionCarga) {
 				case 1:
-					do {
-						if (contArq < 2) {
-							for (int i = 0; i < TAM; i++) {
-								if (estado[i] == LIBRE) {
-									contArq++;
+					if (contArq < 2) {
+						do {
 
-									utn_getNumero(&bufferNumeroCamiseta, "\nIngrese numero de camiseta: ",
-												"Error el numero de camiseta debe estar entre 1 y 99. Reintentos restantes:",
-												1, 99, 3);
-										for (int j = 0; j < TAM; j++) {
-											if (bufferNumeroCamiseta == numCamiseta[j]) {
-												do {
-													printf("Error, ese numero de camiseta ya esta asignado");
-													utn_getNumero(&bufferNumeroCamiseta,
-															"\nIngrese numero de camiseta: ",
-															"Error el numero de camiseta debe estar entre 1 y 99. Reintentos restantes:",
-															1, 99, 3);
-												} while (bufferNumeroCamiseta == numCamiseta[j]);
-
-											}
-										}
-										numCamiseta[i]=bufferNumeroCamiseta;
-
-
-									utn_getNumero(&confederacion[i],
-											"\nIngrese el numero segun la confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC)",
-											"Error eliga un numero entre 1 y 6. Reintentos restantes:",
-											1, 6, 3);
-									estado[i]= OCUPADO;
-									break;
-								}
+							if (utn_getNumero(&numCamiseta,"Ingrese numero de camiseta: ","Error ingrese un numero entre 1 y 99 Intentos restantes:", 1,99, 3)==-1){
+								break;
 							}
-						} else {
-							printf("Error ya se cargaron 2 arqueros.");
-							break;
-						}
-						utn_getChar(&respuesta,
-								"Desea agregar otro arquero? 'S' para continuar, o cualquier otra tecla para salir.",
-								"\nIngrese S o N", 65, 122, 3);
-						respuesta = toupper(respuesta);
-					} while (respuesta == 'S');
-
-					break;
-				case 2:
-					do {
-						if (contDef < 8) {
-							for (int i = 0; i < TAM; i++) {
-								if (estado[i] == LIBRE) {
-									contDef++;
-
-									utn_getNumero(&bufferNumeroCamiseta, "\nIngrese numero de camiseta: ",
-												"Error el numero de camiseta debe estar entre 1 y 99. Reintentos restantes:",
-												1, 99, 3);
-										for (int j = 0; j < TAM; j++) {
-											if (bufferNumeroCamiseta == numCamiseta[j]) {
-												do {
-													printf("Error, ese numero de camiseta ya esta asignado");
-													utn_getNumero(&bufferNumeroCamiseta,
-															"\nIngrese numero de camiseta: ",
-															"Error el numero de camiseta debe estar entre 1 y 99. Reintentos restantes:",
-															1, 99, 3);
-												} while (bufferNumeroCamiseta == numCamiseta[j]);
-
-											}
-										}
-										numCamiseta[i]=bufferNumeroCamiseta;
-
-
-									utn_getNumero(&confederacion[i],
-											"\nIngrese el numero segun la confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC)",
-											"Error eliga un numero entre 1 y 6. Reintentos restantes:",
-											1, 6, 3);
-									estado[i]= OCUPADO;
-									break;
-								}
+							if	(utn_getNumero(&confederacion,"Ingrese confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC): ","Error ingrese un numero entre 1 y 6 Intentos restantes : ", 1, 6,3)==-1){
+								break;
 							}
-						} else {
-							printf("Error ya se cargaron 8 Defensores.");
-							break;
-						}
-						utn_getChar(&respuesta,
-								"Desea agregar otro Defensor? 'S' para continuar, o cualquier otra tecla para salir.",
-								"\nIngrese S o N", 65, 122, 3);
-						respuesta = toupper(respuesta);
-					} while (respuesta == 'S');
+							switch (confederacion) {
+							case 1:
+								contadorAFC++;
+								break;
+							case 2:
+								contadorCAF++;
+								break;
+							case 3:
+								contadorCONCACAF++;
+								break;
+							case 4:
+								contadorCONMEBOL++;
+								break;
+							case 5:
+								contadorUEFA++;
+								break;
+							case 6:
+								contadorOFC++;
+								break;
 
-					break;
-				case 3:
-					do {
-						if (contMC < 8) {
-							for (int i = 0; i < TAM; i++) {
-								if (estado[i] == LIBRE) {
-									contMC++;
-
-									utn_getNumero(&bufferNumeroCamiseta, "\nIngrese numero de camiseta: ",
-												"Error el numero de camiseta debe estar entre 1 y 99. Reintentos restantes:",
-												1, 99, 3);
-										for (int j = 0; j < TAM; j++) {
-											if (bufferNumeroCamiseta == numCamiseta[j]) {
-												do {
-													printf("Error, ese numero de camiseta ya esta asignado");
-													utn_getNumero(&bufferNumeroCamiseta,
-															"\nIngrese numero de camiseta: ",
-															"Error el numero de camiseta debe estar entre 1 y 99. Reintentos restantes:",
-															1, 99, 3);
-												} while (bufferNumeroCamiseta == numCamiseta[j]);
-
-											}
-										}
-										numCamiseta[i]=bufferNumeroCamiseta;
-
-
-									utn_getNumero(&confederacion[i],
-											"\nIngrese el numero segun la confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC)",
-											"Error eliga un numero entre 1 y 6. Reintentos restantes:",
-											1, 6, 3);
-									estado[i]= OCUPADO;
-									break;
-								}
 							}
-						} else {
-							printf("Error ya se cargaron 8 Mediocampistas.");
-							break;
-						}
-						utn_getChar(&respuesta,
-								"\nDesea agregar otro MedioCampista? 'S' para continuar, o cualquier otra tecla para salir.",
-								"\nIngrese S o N", 65, 122, 3);
-						respuesta = toupper(respuesta);
-					} while (respuesta == 'S');
-
-					break;
-				case 4:
-					do {
-											if (contDel < 4) {
-												for (int i = 0; i < TAM; i++) {
-													if (estado[i] == LIBRE) {
-														contDel++;
-
-														utn_getNumero(&bufferNumeroCamiseta, "\nIngrese numero de camiseta: ",
-																	"Error el numero de camiseta debe estar entre 1 y 99. Reintentos restantes:",
-																	1, 99, 3);
-															for (int j = 0; j < TAM; j++) {
-																if (bufferNumeroCamiseta == numCamiseta[j]) {
-																	do {
-																		printf("Error, ese numero de camiseta ya esta asignado");
-																		utn_getNumero(&bufferNumeroCamiseta,
-																				"\nIngrese numero de camiseta: ",
-																				"Error el numero de camiseta debe estar entre 1 y 99. Reintentos restantes:",
-																				1, 99, 3);
-																	} while (bufferNumeroCamiseta == numCamiseta[j]);
-
-																}
-															}
-															numCamiseta[i]=bufferNumeroCamiseta;
-
-
-														utn_getNumero(&confederacion[i],
-																"\nIngrese el numero segun la confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC)",
-																"Error eliga un numero entre 1 y 6. Reintentos restantes:",
-																1, 6, 3);
-														estado[i]= OCUPADO;
-														break;
-													}
-												}
-											} else {
-												printf("Error ya se cargaron 4 Delanteros.");
-												break;
-											}
-											utn_getChar(&respuesta,
-													"\nDesea agregar otro Delantero? 'S' para continuar, o cualquier otra tecla para salir.",
-													"\nIngrese S o N", 65, 122, 3);
-											respuesta = toupper(respuesta);
-										} while (respuesta == 'S');
-					break;
-				case 5:
-					printf("Saliendo...\n");
-					break;
+							contArq++;
+							respuesta = 'N';
+							if (contArq < 2) {
+								utn_getChar(&respuesta,"Desea agregar otro arquero? 'S' para continuar, o cualquier otra tecla para salir.","\nIngrese S o N", 32, 126, 3);
+								respuesta = toupper(respuesta);
+							}
+						} while (respuesta == 'S');
+					}
+					else {
+						printf("Error ya se cargaron 2 arqueros.");
+					}
+				break;
+				case 2: //def menor a 8
+					if (contDef < 8) {
+						do {
+							if (utn_getNumero(&numCamiseta,"Ingrese numero de camiseta: ","Error ingrese un numero entre 1 y 99 Intentos restantes:", 1,99, 3)==-1){
+								break;
+							}
+							if	(utn_getNumero(&confederacion,"Ingrese confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC): ","Error ingrese un numero entre 1 y 6 Intentos restantes : ", 1, 6,3)==-1){
+								break;
+							}
+							switch (confederacion) {
+								case 1:
+									contadorAFC++;
+								break;
+								case 2:
+									contadorCAF++;
+								break;
+								case 3:
+									contadorCONCACAF++;
+								break;
+								case 4:
+									contadorCONMEBOL++;
+								break;
+								case 5:
+									contadorUEFA++;
+								break;
+								case 6:
+									contadorOFC++;
+								break;
+							}
+							contDef++;
+							respuesta = 'N';
+							if (contDef < 8) {
+								utn_getChar(&respuesta,"Desea agregar otro Defensor? 'S' para continuar, o cualquier otra tecla para salir.","\nIngrese S o N", 32, 126, 3);
+								respuesta = toupper(respuesta);
+							}
+						} while (respuesta == 'S');
+					}
+					else {
+						printf("Error ya se cargaron 8 defensores.");
+					}
+				break;
+				case 3: //mc menor a 8
+					if (contMC < 8) {
+						do {
+							if (utn_getNumero(&numCamiseta,"Ingrese numero de camiseta: ","Error ingrese un numero entre 1 y 99 Intentos restantes:", 1,99, 3)==-1){
+								break;
+							}
+							if	(utn_getNumero(&confederacion,"Ingrese confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC): ","Error ingrese un numero entre 1 y 6 Intentos restantes : ", 1, 6,3)==-1){
+								break;
+							}
+							switch (confederacion) {
+								case 1:
+									contadorAFC++;
+								break;
+								case 2:
+									contadorCAF++;
+								break;
+								case 3:
+									contadorCONCACAF++;
+								break;
+								case 4:
+									contadorCONMEBOL++;
+								break;
+								case 5:
+									contadorUEFA++;
+								break;
+								case 6:
+									contadorOFC++;
+								break;
+							}
+							contMC++;
+							respuesta = 'N';
+							if (contMC < 8) {
+								utn_getChar(&respuesta,"Desea agregar otro Mediocampista? 'S' para continuar, o cualquier otra tecla para salir.","\nIngrese S o N", 32, 126, 3);
+								respuesta = toupper(respuesta);
+							}
+						} while (respuesta == 'S');
+					}
+					else {
+						printf("Error ya se cargaron 8 Mediocampistas.");
+					}
+				break;
+				case 4: //Del menor a 4
+					if (contDel < 4) {
+						do {
+							if (utn_getNumero(&numCamiseta,"Ingrese numero de camiseta: ","Error ingrese un numero entre 1 y 99 Intentos restantes:", 1,99, 3)==-1){
+								break;
+							}
+							if	(utn_getNumero(&confederacion,"Ingrese confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC): ","Error ingrese un numero entre 1 y 6 Intentos restantes : ", 1, 6,3)==-1){
+								break;
+							}
+							switch (confederacion) {
+								case 1:
+									contadorAFC++;
+								break;
+								case 2:
+									contadorCAF++;
+								break;
+								case 3:
+									contadorCONCACAF++;
+								break;
+								case 4:
+									contadorCONMEBOL++;
+								break;
+								case 5:
+									contadorUEFA++;
+								break;
+								case 6:
+									contadorOFC++;
+								break;
+							}
+							contDel++;
+							respuesta = 'N';
+							if (contDel < 4) {
+								utn_getChar(&respuesta,"Desea agregar otro Delantero? 'S' para continuar, o cualquier otra tecla para salir.","\nIngrese S o N", 32, 126, 3);
+								respuesta = toupper(respuesta);
+							}
+						} while (respuesta == 'S');
+					}
+					else {
+						printf("Error ya se cargaron 4 Delanteros.");
+					}
+				break;
 				default:
-					printf("Opcion incorrecta.\n");
+					printf("Saliendo...\n");
 					break;
 				}
 			} while (opcionCarga != 5);
-
 			break;
 		case 3:
+			if(contArq + contDef + contMC + contDel == 22 && (costoHospedaje > 0 && costoComida > 0 && costoTransporte>0)){
 
-			for(int i =0;i<TAM;i++){
-				switch(confederacion[i]){
-				case 1:
-					contadorAFC++;
-					break;
-				case 2:
-					contadorCAF++;
-					break;
-				case 3:
-					contadorCONCACAF++;
-					break;
-				case 4:
-					contadorCONMEBOL++;
-					break;
-				case 5:
-					contadorUEFA++;
-					break;
-				case 6:
-					contadorOFC++;
-					break;
+				CalcularPromedio(&promedioAFC,contadorAFC, 22 );
+				CalcularPromedio(&promedioCAF,contadorCAF, 22 );
+				CalcularPromedio(&promedioCONCACAF,contadorCONCACAF, 22 );
+				CalcularPromedio(&promedioCONMEBOL,contadorCONMEBOL, 22 );
+				CalcularPromedio(&promedioUEFA,contadorUEFA, 22 );
+				CalcularPromedio(&promedioOFC,contadorOFC, 22 );
+
+				costoMantenimiento= costoHospedaje+ costoComida + costoTransporte;
+
+				if(promedioUEFA> promedioOFC && promedioUEFA > contadorCONMEBOL && promedioUEFA > contadorCONCACAF  && promedioUEFA > contadorCAF && promedioUEFA > contadorAFC){
+
+					CalcularPorcentaje(&aumento,costoMantenimiento,35);
+					costoFinal=costoMantenimiento+aumento;
 				}
+				printf("\nCalculos realizados correctamente");
 			}
-
-
-
+			else{
+				printf("\nError, faltan datos por cargar.");
+			}
 			break;
 		case 4:
-			break;
-		case 5:
-			printf("Saliendo...\n");
+			if(costoMantenimiento>0){
+				printf("Promedio AFC: %.2f \nPromedio CAF: %.2f \nPromedio CONCACAF: %.2f \nPromedio CONMEBOL: %.2f \nPromedio UEFA: %.2f \nPromedio OFC: %.2f \n",promedioAFC,promedioCAF,promedioCONCACAF,promedioCONMEBOL,promedioUEFA,promedioOFC);
+
+				if(aumento>0){
+					printf("El costo de mantenimiento era de %d y recibio un aumento de %d, su nuevo valor es de: %d",costoMantenimiento,aumento,costoFinal);
+				}
+				else{
+					printf("El costo de mantenimiento es de %d",costoMantenimiento);
+				}
+
+			}
+			else{
+				printf("\nERROR Se deben calcular los datos antes de poder imprimirlos.");
+			}
 			break;
 		default:
-			printf("Opcion incorrecta.\n");
+			printf("Saliendo...\n");
 			break;
 		}
-
 	} while (opcion != 5);
 
 	return 1;

@@ -6,14 +6,24 @@
  */
 #include <stdio.h>
 
-int InicializarArray(int array[],int SIZE){
-	int retorno = -1;//Si la inicializacion sale mal
 
-	if (SIZE>0){
-		for(int i =0;i<SIZE;i++){
-			array[i]=0;
-		}
-		retorno = 1;//inicializacion correcta
+int CalcularPromedio(float *pPromedio,int divisor, int dividendo ){
+	int retorno = -1;
+
+	if(divisor>0){
+		*pPromedio = dividendo /divisor;
+		retorno = 1;
+	}
+	return retorno;
+}
+
+
+int CalcularPorcentaje(int *pPorcentaje, int numero, int porcentaje){
+	int retorno =-1;
+	porcentaje = porcentaje + 100;
+	if (numero!=0){
+		*pPorcentaje= (numero/100) * porcentaje;
+		retorno = 1;
 	}
 	return retorno;
 }

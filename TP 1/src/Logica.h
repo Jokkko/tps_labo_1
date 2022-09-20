@@ -8,7 +8,7 @@
 #ifndef LOGICA_H_
 #define LOGICA_H_
 
-int InicializarArray(int array[],int SIZE);
-
+int CalcularPromedio(float *pPromedio,int divisor, int dividendo );
+int CalcularPorcentaje(int *pPorcentaje, int numero, int porcentaje);
 
 #endif /* LOGICA_H_ */
