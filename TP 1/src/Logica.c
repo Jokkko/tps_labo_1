@@ -10,7 +10,7 @@
 int CalcularPromedio(float *pPromedio,int divisor, int dividendo ){
 	int retorno = -1;
 
-	if(divisor>0){
+	if(divisor!=0){
 		*pPromedio = dividendo /divisor;
 		retorno = 1;
 	}
@@ -18,12 +18,11 @@ int CalcularPromedio(float *pPromedio,int divisor, int dividendo ){
 }
 
 
-int CalcularPorcentaje(int *pPorcentaje, int numero, int porcentaje){
+int CalcularPorcentaje(int *pPorcentaje, int numero, float porcentaje){
 	int retorno =-1;
-	porcentaje = porcentaje + 100;
-	if (numero!=0){
-		*pPorcentaje= (numero/100) * porcentaje;
+	porcentaje = porcentaje/100;
+	*pPorcentaje= numero *porcentaje;
 		retorno = 1;
-	}
 	return retorno;
 }
+

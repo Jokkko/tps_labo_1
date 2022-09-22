@@ -18,14 +18,14 @@ int main(void) {
 	int costoHospedaje = 0, costoComida = 0, costoTransporte = 0,
 			costoMantenimiento = 0;
 	int contArq = 0, contDef = 0, contMC = 0, contDel = 0;
-	int numCamiseta,confederacion;
+	int numCamiseta;
 	char respuesta;
 	int contadorAFC = 0, contadorCAF = 0, contadorCONCACAF = 0,
 			contadorCONMEBOL = 0, contadorUEFA = 0, contadorOFC = 0;
 	float promedioAFC,promedioCAF,promedioCONCACAF,promedioCONMEBOL,promedioUEFA,promedioOFC;
 	int aumento;
 	int costoFinal;
-
+	int cantJugadores;
 	do {
 		printf(
 				"\nMenu principal\n "
@@ -91,30 +91,10 @@ int main(void) {
 							if (utn_getNumero(&numCamiseta,"Ingrese numero de camiseta: ","Error ingrese un numero entre 1 y 99 Intentos restantes:", 1,99, 3)==-1){
 								break;
 							}
-							if	(utn_getNumero(&confederacion,"Ingrese confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC): ","Error ingrese un numero entre 1 y 6 Intentos restantes : ", 1, 6,3)==-1){
+							if(ContarConfederacion(&contadorAFC, &contadorCAF, &contadorCONCACAF,&contadorCONMEBOL, &contadorUEFA, &contadorOFC)==-1){
 								break;
 							}
-							switch (confederacion) {
-							case 1:
-								contadorAFC++;
-								break;
-							case 2:
-								contadorCAF++;
-								break;
-							case 3:
-								contadorCONCACAF++;
-								break;
-							case 4:
-								contadorCONMEBOL++;
-								break;
-							case 5:
-								contadorUEFA++;
-								break;
-							case 6:
-								contadorOFC++;
-								break;
 
-							}
 							contArq++;
 							respuesta = 'N';
 							if (contArq < 2) {
@@ -133,27 +113,7 @@ int main(void) {
 							if (utn_getNumero(&numCamiseta,"Ingrese numero de camiseta: ","Error ingrese un numero entre 1 y 99 Intentos restantes:", 1,99, 3)==-1){
 								break;
 							}
-							if	(utn_getNumero(&confederacion,"Ingrese confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC): ","Error ingrese un numero entre 1 y 6 Intentos restantes : ", 1, 6,3)==-1){
-								break;
-							}
-							switch (confederacion) {
-								case 1:
-									contadorAFC++;
-								break;
-								case 2:
-									contadorCAF++;
-								break;
-								case 3:
-									contadorCONCACAF++;
-								break;
-								case 4:
-									contadorCONMEBOL++;
-								break;
-								case 5:
-									contadorUEFA++;
-								break;
-								case 6:
-									contadorOFC++;
+							if (ContarConfederacion(&contadorAFC, &contadorCAF,&contadorCONCACAF, &contadorCONMEBOL,&contadorUEFA, &contadorOFC) == -1) {
 								break;
 							}
 							contDef++;
@@ -174,27 +134,7 @@ int main(void) {
 							if (utn_getNumero(&numCamiseta,"Ingrese numero de camiseta: ","Error ingrese un numero entre 1 y 99 Intentos restantes:", 1,99, 3)==-1){
 								break;
 							}
-							if	(utn_getNumero(&confederacion,"Ingrese confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC): ","Error ingrese un numero entre 1 y 6 Intentos restantes : ", 1, 6,3)==-1){
-								break;
-							}
-							switch (confederacion) {
-								case 1:
-									contadorAFC++;
-								break;
-								case 2:
-									contadorCAF++;
-								break;
-								case 3:
-									contadorCONCACAF++;
-								break;
-								case 4:
-									contadorCONMEBOL++;
-								break;
-								case 5:
-									contadorUEFA++;
-								break;
-								case 6:
-									contadorOFC++;
+							if (ContarConfederacion(&contadorAFC, &contadorCAF,&contadorCONCACAF, &contadorCONMEBOL,&contadorUEFA, &contadorOFC) == -1) {
 								break;
 							}
 							contMC++;
@@ -215,27 +155,7 @@ int main(void) {
 							if (utn_getNumero(&numCamiseta,"Ingrese numero de camiseta: ","Error ingrese un numero entre 1 y 99 Intentos restantes:", 1,99, 3)==-1){
 								break;
 							}
-							if	(utn_getNumero(&confederacion,"Ingrese confederacion (1.AFC | 2.CAF | 3.CONCACAF | 4. CONMEBOL | 5. UEFA | 6. OFC): ","Error ingrese un numero entre 1 y 6 Intentos restantes : ", 1, 6,3)==-1){
-								break;
-							}
-							switch (confederacion) {
-								case 1:
-									contadorAFC++;
-								break;
-								case 2:
-									contadorCAF++;
-								break;
-								case 3:
-									contadorCONCACAF++;
-								break;
-								case 4:
-									contadorCONMEBOL++;
-								break;
-								case 5:
-									contadorUEFA++;
-								break;
-								case 6:
-									contadorOFC++;
+							if (ContarConfederacion(&contadorAFC, &contadorCAF,&contadorCONCACAF, &contadorCONMEBOL,&contadorUEFA, &contadorOFC) == -1) {
 								break;
 							}
 							contDel++;
@@ -256,22 +176,27 @@ int main(void) {
 				}
 			} while (opcionCarga != 5);
 			break;
-		case 3:
-			if(contArq + contDef + contMC + contDel == 22 && (costoHospedaje > 0 && costoComida > 0 && costoTransporte>0)){
 
-				CalcularPromedio(&promedioAFC,contadorAFC, 22 );
-				CalcularPromedio(&promedioCAF,contadorCAF, 22 );
-				CalcularPromedio(&promedioCONCACAF,contadorCONCACAF, 22 );
-				CalcularPromedio(&promedioCONMEBOL,contadorCONMEBOL, 22 );
-				CalcularPromedio(&promedioUEFA,contadorUEFA, 22 );
-				CalcularPromedio(&promedioOFC,contadorOFC, 22 );
+		case 3:
+			cantJugadores= contArq + contDef + contMC + contDel;
+			if(cantJugadores >0 && (costoHospedaje > 0 && costoComida > 0 && costoTransporte>0)){
+
+
+
+				CalcularPromedio(&promedioAFC,cantJugadores, contadorAFC );
+				CalcularPromedio(&promedioCAF,cantJugadores, contadorCAF );
+				CalcularPromedio(&promedioCONCACAF,cantJugadores, contadorCONCACAF );
+				CalcularPromedio(&promedioCONMEBOL,cantJugadores, contadorCONMEBOL );
+				CalcularPromedio(&promedioUEFA,cantJugadores, contadorUEFA );
+				CalcularPromedio(&promedioOFC,cantJugadores, contadorOFC );
 
 				costoMantenimiento= costoHospedaje+ costoComida + costoTransporte;
 
-				if(promedioUEFA> promedioOFC && promedioUEFA > contadorCONMEBOL && promedioUEFA > contadorCONCACAF  && promedioUEFA > contadorCAF && promedioUEFA > contadorAFC){
+				if(contadorUEFA> contadorOFC && contadorUEFA > contadorCONMEBOL && contadorUEFA > contadorCONCACAF  && contadorUEFA > contadorCAF && contadorUEFA > contadorAFC){
 
 					CalcularPorcentaje(&aumento,costoMantenimiento,35);
 					costoFinal=costoMantenimiento+aumento;
+
 				}
 				printf("\nCalculos realizados correctamente");
 			}

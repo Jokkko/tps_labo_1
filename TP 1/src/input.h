@@ -17,9 +17,7 @@
  * \param maximo Es el minimo minimo a ser aceptado
  * \return Retorna 0 si se obtuvo el numero y -1 si no
  */
-
-int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,
-		int minimo, int maximo, int reintentos);
+int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,int minimo, int maximo, int reintentos);
 
 /**
  * \brief Verifica si la cadena ingresada es numerica
@@ -46,12 +44,45 @@ int esNumerica(char *cadena);
  */
 int myGets(char *cadena, int longitud);
 
-int utn_getPositivo(int *pResultado, char *mensaje, char *mensajeError,
-		int reintentos);
+/**
+ * \fn int utn_getPositivo(int*, char*, char*, int)
+ * \brief Pide un numero al usuario y verifica que sea positivo
+ *
+ * \param pResultado Puntero a el espacio de memoria donde se guardara el numero positivo ingresado
+ * \param mensaje Mensaje a mostrar a la hora de pedir el numero
+ * \param mensajeError Mensaje a mostrar en caso de error
+ * \param reintentos Cantidad de reintentos
+ * \return Retorna 0 (EXITO) si se obtiene un numero positivo y -1 (ERROR) si no
+ */
+int utn_getPositivo(int *pResultado, char *mensaje, char *mensajeError,	int reintentos);
 
-int utn_getChar(char *pResultado, char *mensaje, char *mensajeError,
-		char minimo, char maximo, int reintentos);
+/**
+ * \fn int utn_getChar(char*, char*, char*, char, char, int)
+ * \brief Pide al usuario un caracter y verifica que este entre los valores maximos y minimos dados por parametros
+ *
+ * \param pResultado puntero a la direccion  de memoria donde se guardara el caracter obtenido
+ * \param mensaje Mensaje a mostrar a la hora de pedir el caracter
+ * \param mensajeError Mensaje a mostrar en caso de error
+ * \param minimo Numero del caracter en codigo ascii minimo
+ * \param maximo Numero del caracter en codigo ascii maximo
+ * \param reintentos Cantidad de reintentos
+ * \return Retorna 1 (EXITO) si se obtiene un caracter entre los rangos y -1 (ERROR) si no
+ */
+int utn_getChar(char *pResultado, char *mensaje, char *mensajeError, char minimo, char maximo, int reintentos);
 
+/**
+ * \fn int ContarConfederacion(int*, int*, int*, int*, int*, int*)
+ * \brief Pide al usuario ingresar una confederacion y suma al contador de la misma 1 en caso de coincidir
+ *
+ * \param pContadorAFC Puntero a la direccion de memoria para guardar el aumento al contador
+ * \param pContadorCAF Puntero a la direccion de memoria para guardar el aumento al contador
+ * \param pContadorCONCACAF Puntero a la direccion de memoria para guardar el aumento al contador
+ * \param pContadorCONMEBOL Puntero a la direccion de memoria para guardar el aumento al contador
+ * \param pContadorUEFA Puntero a la direccion de memoria para guardar el aumento al contador
+ * \param pContadorOFC Puntero a la direccion de memoria para guardar el aumento al contador
+ * \return Retorna 1 (EXITO) si el usuario ingresa una confederacion valida en 3 intentos y -1 (ERROR) si no
+ */
+int ContarConfederacion( int *pContadorAFC, int *pContadorCAF, int *pContadorCONCACAF, int *pContadorCONMEBOL, int *pContadorUEFA, int *pContadorOFC);
 
 
 #endif /* FUNCIONESENTRADAYSALIDA_H_ */
