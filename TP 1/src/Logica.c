@@ -9,9 +9,11 @@
 
 int CalcularPromedio(float *pPromedio,int divisor, int dividendo ){
 	int retorno = -1;
+	float resultado;
 
 	if(divisor!=0){
-		*pPromedio = dividendo /divisor;
+		resultado = (float)dividendo /divisor;
+		*pPromedio = resultado;
 		retorno = 1;
 	}
 	return retorno;

@@ -23,7 +23,7 @@ int main(void) {
 	int contadorAFC = 0, contadorCAF = 0, contadorCONCACAF = 0,
 			contadorCONMEBOL = 0, contadorUEFA = 0, contadorOFC = 0;
 	float promedioAFC,promedioCAF,promedioCONCACAF,promedioCONMEBOL,promedioUEFA,promedioOFC;
-	int aumento;
+	int aumento=0;
 	int costoFinal;
 	int cantJugadores;
 	do {
