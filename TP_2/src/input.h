@@ -1,12 +1,13 @@
 /*
- * INPUT.h
+ * input.h
  *
- *  Created on: 12 sep. 2022
+ *  Created on: 29 sep. 2022
  *      Author: vazzr
  */
 
 #ifndef INPUT_H_
 #define INPUT_H_
+
 
 /**
  * \brief Solicita un numero al usuario, leuego de verificarlo devuelve el resultado
@@ -69,20 +70,28 @@ int utn_getPositivo(int *pResultado, char *mensaje, char *mensajeError,	int rein
  * \return Retorna 1 (EXITO) si se obtiene un caracter entre los rangos y -1 (ERROR) si no
  */
 int utn_getChar(char *pResultado, char *mensaje, char *mensajeError, char minimo, char maximo, int reintentos);
+/**
+ * \fn int getString(char[], int, char[])
+ * \brief Pide al usuario una cadena de caracteres
+ *
+ * \param string Array donde se guardara la cadena
+ * \param SIZE Tamanio de la cadena
+ * \param mensaje Mensaje a mostrar al usuario
+ * \return Retorna 0 en caso de error y 1 si se obtiene la cadena
+ */
+int getString(char string[],int SIZE,char mensaje[]);
 
 /**
- * \fn int ContarConfederacion(int*, int*, int*, int*, int*, int*)
- * \brief Pide al usuario ingresar una confederacion y suma al contador de la misma 1 en caso de coincidir
+ * \fn int utn_getFloat(float*, char*, char*, float, float, int)
+ * \brief Pide al usuario un numero flotante y verifica que este entre un maximo y un minimo dados por parametros
  *
- * \param pContadorAFC Puntero a la direccion de memoria para guardar el aumento al contador
- * \param pContadorCAF Puntero a la direccion de memoria para guardar el aumento al contador
- * \param pContadorCONCACAF Puntero a la direccion de memoria para guardar el aumento al contador
- * \param pContadorCONMEBOL Puntero a la direccion de memoria para guardar el aumento al contador
- * \param pContadorUEFA Puntero a la direccion de memoria para guardar el aumento al contador
- * \param pContadorOFC Puntero a la direccion de memoria para guardar el aumento al contador
- * \return Retorna 1 (EXITO) si el usuario ingresa una confederacion valida en 3 intentos y -1 (ERROR) si no
+ * \param pResultado puntero a la direccion de memoria donde se guardara el flotante obtenido
+ * \param mensaje mensaje a mostrar al usuario a la hora de pedir el flotante
+ * \param mensajeError mensaje a mostrar en caso de error
+ * \param minimo numero minimo del flotante
+ * \param maximo numero maximo del flotante
+ * \param reintentos cantidad de reintentos
+ * \return
  */
-int ContarConfederacion( int *pContadorAFC, int *pContadorCAF, int *pContadorCONCACAF, int *pContadorCONMEBOL, int *pContadorUEFA, int *pContadorOFC);
-
-
-#endif /* FUNCIONESENTRADAYSALIDA_H_ */
+int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError,float minimo, float maximo, int reintentos);
+#endif /* INPUT_H_ */
