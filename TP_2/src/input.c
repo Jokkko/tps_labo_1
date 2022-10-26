@@ -38,12 +38,39 @@ int esNumerica(char *cadena) {
 	return retorno;
 }
 
+int esFloat(char *cadena) {
+	int i = 0;
+	int retorno = 1;
+	if (cadena != NULL && strlen(cadena) > 0) {
+		while (cadena[i] != '\0') {
+			if ((cadena[i] < '0' || cadena[i] > '9') && cadena[i]!='.') {
+				retorno = 0;
+				break;
+			}
+			i++;
+		}
+	}
+	return retorno;
+}
+
 int getInt(int *pResultado) {
 	int retorno = -1;
 	char buffer[64];
 	if (pResultado != NULL) {
 		if (myGets(buffer, sizeof(buffer)) == 0 && esNumerica(buffer)) {
 			*pResultado = atoi(buffer);
+			retorno = 0;
+		}
+	}
+	return retorno;
+}
+
+int getFloat(float *pResultado) {
+	int retorno = -1;
+	char buffer[64];
+	if (pResultado != NULL) {
+		if (myGets(buffer, sizeof(buffer)) == 0 && esFloat(buffer)) {
+			*pResultado = atof(buffer);
 			retorno = 0;
 		}
 	}
@@ -67,7 +94,6 @@ int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,
 		printf("%s \n", mensajeError);
 		if (reintentos == 0) {
 			retorno=-1;
-			printf("Saliendo...");
 		}
 
 	}
@@ -119,7 +145,7 @@ int utn_getChar(char *pResultado, char *mensaje, char *mensajeError,
 	return retorno;
 }
 
-int getString(char string[],int SIZE,char mensaje[])
+int getString(char *string,int SIZE,char *mensaje)
 {
 	int retorno;
 	char buffer[1024];
@@ -143,25 +169,84 @@ int getString(char string[],int SIZE,char mensaje[])
 	return retorno;
 }
 
-int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError,float minimo, float maximo, int reintentos){
 
+int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError,float minimo, float maximo, int reintentos) {
 	float bufferFloat;
 	int retorno = -1;
-	if(pResultado !=NULL && mensaje != NULL && mensajeError!=NULL && minimo<=maximo && reintentos>=0){
-
-		do{
-			printf("%s",mensaje);
-			scanf("%f",&bufferFloat);
-			if(bufferFloat>= minimo && bufferFloat<=maximo){
+	while (reintentos > 0) {
+		reintentos--;
+		printf("%s", mensaje);
+		if (getFloat(&bufferFloat) == 0) {
+			if (bufferFloat >= minimo && bufferFloat <= maximo) {
 				*pResultado = bufferFloat;
-				retorno=0;
+				retorno = 0;
 				break;
 			}
-			else{
-				printf("%s",mensajeError);
-				reintentos--;
+		}
+		printf("%s \n", mensajeError);
+		if (reintentos == 0) {
+			retorno=-1;
+		}
+
+	}
+	return retorno;
+}
+
+
+int getNombre(char *string,int SIZE,char *mensaje){
+	int retorno;
+	int largo;
+
+	getString(string,SIZE,mensaje);
+
+	largo= (int)strlen(string);
+
+	for(int i=0;i<largo;i++){
+
+		if( (string[i] >= 65 && string[i] <= 90) || (string[i] >= 97 && string[i] <= 122) || (string[i] ==32) ){
+			retorno=0;
+		}else{
+			retorno=-1;
+			break;
+		}
+	}
+
+
+	return retorno;
+}
+
+int getPosicion(char *string,int SIZE,char *mensaje){
+	int retorno;
+
+	getString(string,SIZE,mensaje);
+
+		if( strcmpi(string,"delantero")==0 || strcmpi(string,"defensor")==0 || strcmpi(string,"mediocampista")==0 ||strcmpi(string,"portero")==0){
+			retorno=0;
+		}else{
+			retorno=-1;
+		}
+	return retorno;
+}
+
+int utn_getShort(short *pResultado, char *mensaje, char *mensajeError,
+		short minimo, short maximo, int reintentos) {
+	int bufferInt;
+	int retorno = -1;
+	while (reintentos > 0) {
+		reintentos--;
+		printf("%s", mensaje);
+		if (getInt(&bufferInt) == 0) {
+			if (bufferInt >= minimo && bufferInt <= maximo) {
+				*pResultado = bufferInt;
+				retorno = 0;
+				break;
 			}
-		}while(reintentos>=0);
+		}
+		printf("%s \n", mensajeError);
+		if (reintentos == 0) {
+			retorno=-1;
+		}
+
 	}
 	return retorno;
 }

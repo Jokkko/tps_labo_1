@@ -28,12 +28,16 @@ int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,int minimo,
  */
 int getInt(int *pResultado);
 
+int getFloat(float *pResultado);
+
 /**
  * \brief Verifica si la cadena ingresada es numerica
  * \param cadena Cadena de caracteres a ser analizada
  * \return Retorna 1 (vardadero) si la cadena es numerica y 0 (falso) si no lo es
  */
 int esNumerica(char *cadena);
+
+int esFloat(char *cadena);
 
 /**
  * \brief Lee de stdin hasta que encuentra un '\n' o hasta que haya copiado en cadena
@@ -56,6 +60,8 @@ int myGets(char *cadena, int longitud);
  * \return Retorna 0 (EXITO) si se obtiene un numero positivo y -1 (ERROR) si no
  */
 int utn_getPositivo(int *pResultado, char *mensaje, char *mensajeError,	int reintentos);
+
+int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError,float minimo, float maximo, int reintentos);
 
 /**
  * \fn int utn_getChar(char*, char*, char*, char, char, int)
@@ -93,5 +99,11 @@ int getString(char string[],int SIZE,char mensaje[]);
  * \param reintentos cantidad de reintentos
  * \return
  */
-int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError,float minimo, float maximo, int reintentos);
+
+int getNombre(char *string,int SIZE,char *mensaje);
+
+int getPosicion(char *string,int SIZE,char *mensaje);
+
+int utn_getShort(short *pResultado, char *mensaje, char *mensajeError,short minimo, short maximo, int reintentos);
+
 #endif /* INPUT_H_ */
