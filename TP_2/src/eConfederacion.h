@@ -23,6 +23,10 @@ int HardcodeoConfederacion(eConfederacion confederaciones[],int SIZE);
 
 int SwapConfederacion(eConfederacion confederacion[], int i,int j);
 
-int BuscarIdConf(eConfederacion confederacion[],int SIZE,int id);
+int BuscarIndiceConf(eConfederacion confederacion[],int SIZE,int id);
+
+int InicializarEstadoConf(eConfederacion confederacion[],int SIZE);
+
+int AltaConfederacion(eConfederacion confederacion[],int SIZE, int IdAutoincremental);
 
 #endif /* ECONFEDERACION_H_ */

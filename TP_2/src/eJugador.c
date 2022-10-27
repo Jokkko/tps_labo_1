@@ -121,8 +121,8 @@ int BajaJugador(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int
 	int indice;
 
 	if(SIZE>0 && SIZE2>0 && jugadores != NULL && confederacion != NULL){
-		MostrarJugadorPorID(jugadores,SIZE,confederacion,SIZE2);
-
+		OrdenarJugadorPorID(jugadores,SIZE,confederacion,SIZE2);
+		MostrarJugador(jugadores, SIZE, confederacion,SIZE2);
 		do{
 			error = utn_getNumero(&id, "Ingrese el id del jugador a dar de baja: ", "Error, Ingrese un id valido.",0, 4000, 1);
 		}while(error==-1);
@@ -146,57 +146,6 @@ int BajaJugador(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int
 	return retorno;
 }
 
-int ModificarJugador(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2){
-	int retorno=-1;
-	int opcionModificar;
-	int error;
-	int id;
-	int indice;
-
-	if(jugadores !=NULL && SIZE>0 && confederacion != NULL && SIZE2>0){
-
-		MostrarJugadorPorID(jugadores,SIZE,confederacion,SIZE2);
-
-		do{
-			error = utn_getNumero(&id, "Ingrese el id del jugador a dar a modificar: ", "Error, Ingrese un id valido.",0, 4000, 1);
-		}while(error==-1);
-
-		indice = BuscarIdJugador(jugadores,SIZE,id);
-		if(indice !=-1){
-			do{
-				opcionModificar = MostrarMenu("1. Modificar Nombre.","2. Modificar Posicion.","3. Numero de camiseta.","4. Confederacion.","5. Salarios.","6. Anios de contrato.","7.Salir.","Menu Modificar");
-				switch(opcionModificar){
-				case 1:
-					MensajeError(ModificarNombre(jugadores,indice,SIZE));
-					break;
-				case 2:
-					MensajeError(ModificarPosicion(jugadores,indice,SIZE));
-					break;
-				case 3:
-					MensajeError(ModificarNumeroCamiseta(jugadores,indice,SIZE));
-					break;
-				case 4:
-					MensajeError(ModificarConfederacion(jugadores,indice,SIZE,confederacion,SIZE2));
-					break;
-				case 5:
-					MensajeError(ModificarSalario(jugadores,indice,SIZE));
-					break;
-				case 6:
-					MensajeError(ModificarAniosContrato(jugadores,indice,SIZE));
-					break;
-				case 7:
-					printf("\nSaliendo...\n");
-					break;
-				default:
-					printf("\nError ingrese una opcion valida.\n\n");
-					break;
-				}
-			}while(opcionModificar!=7);
-			retorno =1;
-		}
-	}
-	return retorno;
-}
 
 int ModificarConfederacion(eJugador jugadores[],int indice,int SIZE,eConfederacion confederacion[],int SIZE2){
 	int retorno= -1;
@@ -256,7 +205,7 @@ int ModificarPosicion(eJugador jugadores[],int indice,int SIZE){
 	int error;
 	if(jugadores !=NULL && SIZE>0){
 		do{
-			error =getNombre(PosicionNueva,50,"\nIngrese Posicion del jugador: ");
+			error =getPosicion(PosicionNueva,50,"Ingrese posicion del Jugador (Portero,Defensor,Delantero,Mediocampista): ");
 		}while(error ==-1);
 		fflush(stdin);
 		do{
@@ -357,10 +306,8 @@ int DetectarJugadores(eJugador jugadores[],int SIZE){
 	int retorno =0;
 	if(jugadores !=NULL && SIZE>0){
 		for(int i=0;i<SIZE;i++){
-			retorno=0;
 			if(jugadores[i].isEmpty==LLENO){
-				retorno=1;
-				break;
+				retorno++;
 			}
 		}
 	}
@@ -399,7 +346,7 @@ int ContadorJugadores(eJugador jugadores[],int SIZE){
 int PromedioSalarios(float salarios, int cantJugadores,float *pResultado){
 	int retorno;
 
-	if(salarios>0 && cantJugadores>0){
+	if(salarios>0 && cantJugadores>0 && pResultado !=NULL){
 		retorno=1;
 		*pResultado = salarios/cantJugadores;
 	}
@@ -411,15 +358,126 @@ int JugadoresArribaPromedio(eJugador jugadores[],int SIZE){
 	float promedioTotal;
 	float totalSalarios;
 	int cantJugadores;
-	TotalDeSalarios(jugadores,SIZE,&totalSalarios);
-	cantJugadores = ContadorJugadores(jugadores,SIZE);
-	PromedioSalarios(totalSalarios,cantJugadores,&promedioTotal);
-	for(int i=0;i<SIZE;i++){
-		if(jugadores[i].isEmpty==LLENO && jugadores[i].salario>promedioTotal){
-			retorno++;
+	if(jugadores !=NULL && SIZE>0){
+		TotalDeSalarios(jugadores,SIZE,&totalSalarios);
+		cantJugadores = ContadorJugadores(jugadores,SIZE);
+		PromedioSalarios(totalSalarios,cantJugadores,&promedioTotal);
+		for(int i=0;i<SIZE;i++){
+			if(jugadores[i].isEmpty==LLENO && jugadores[i].salario>promedioTotal){
+				retorno++;
+			}
 		}
 	}
 	return retorno;
 }
 
+int OrdenarAlfabetico(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2){
+	int retorno=-1;
+	int indiceConfI;
+	int indiceConfJ;
+	if(jugadores !=NULL && SIZE>0 && confederacion != NULL && SIZE2>0){
+		retorno=1;
+			for(int i=0; i<SIZE-1; i++){
+			for( int j=i+1; j<SIZE; j++ ){
+				indiceConfI= BuscarIndiceConf(confederacion,SIZE2,jugadores[i].idConfederacion);
+				indiceConfJ = BuscarIndiceConf(confederacion,SIZE2,jugadores[j].idConfederacion);
+				if( strcmp(confederacion[indiceConfI].nombre,confederacion[indiceConfJ].nombre)>0 ){
+
+					 SwapJugador(jugadores,i,j);
+				}
+				else{
+					if(jugadores[i].idConfederacion == jugadores[j].idConfederacion ){
+						if(strcmp(jugadores[i].nombre,jugadores[j].nombre)>0){
+							SwapJugador(jugadores,i,j);
+						}
+					}
+				}
+			}
+		}
+	}
+	return retorno;
+}
+
+int OrdenarJugadorPorID(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2){
+	int retorno=-1;
+	if(jugadores !=NULL && SIZE>0 && confederacion != NULL && SIZE2>0){
+		retorno =1;
+		for(int i=0; i<SIZE-1; i++){
+			for( int j=i+1; j<SIZE; j++ ){
+
+				if( jugadores[i].id > jugadores[j].id ){
+					SwapJugador(jugadores,i,j);
+				}
+			}
+		}
+	}
+	return retorno;
+}
+
+int IDConfeMasAnios(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2){
+	int idMasAnios;
+	short acum=0;
+	int bandera=0;
+	short max;
+	if(jugadores !=NULL && SIZE>0 && confederacion != NULL && SIZE2>0){
+		for(int i=0;i<SIZE2;i++){
+			acum=0;
+			for(int j=0;j<SIZE;j++){
+				if(confederacion[i].id == jugadores[j].idConfederacion && jugadores[j].isEmpty== LLENO){
+					acum+=jugadores[j].aniosContrato;
+					if(bandera==0 || acum>max){
+						bandera=1;
+						idMasAnios=confederacion[i].id;
+						max=acum;
+					}
+				}
+			}
+		}
+	}
+	return idMasAnios;
+}
+
+int ContarJugadoresPorConfe(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int *contador,int indiceConfe){
+	int retorno=-1;
+	if(jugadores !=NULL && SIZE>0 && confederacion != NULL && contador !=NULL){
+		*contador=0;
+		for(int i=0;i<SIZE;i++){
+			if(jugadores[i].isEmpty== LLENO && confederacion[indiceConfe].id==jugadores[i].idConfederacion){
+				*contador= *contador + 1;
+				retorno=1;
+			}
+		}
+	}
+
+
+	return retorno;
+}
+
+int ContarJugadoresPorRegion(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2,char regionmax[]){
+	int indiceMax=-1;
+	short cont=0;
+	int bandera=0;
+	int max;
+	if(jugadores !=NULL&& SIZE>0 && confederacion != NULL && SIZE2>0 && regionmax !=NULL){
+		for(int i=0;i<SIZE2;i++){
+			if(confederacion[i].isEmpty==LLENO){
+				cont=0;
+				for(int j=0;j<SIZE;j++){
+					if(jugadores[j].isEmpty==LLENO){
+						if( confederacion[i].id==jugadores[j].idConfederacion || (stricmp(confederacion[i].region,confederacion[i+1].region)==0 && i+1<SIZE2)){
+							cont++;
+							if(bandera==0 || cont>max){
+								bandera=1;
+								max=cont;
+								strcpy(regionmax,confederacion[i].region);
+								indiceMax=i;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return indiceMax;
+}
 

@@ -77,8 +77,7 @@ int getFloat(float *pResultado) {
 	return retorno;
 }
 
-int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,
-		int minimo, int maximo, int reintentos) {
+int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,int minimo, int maximo, int reintentos) {
 	int bufferInt;
 	int retorno = -1;
 	while (reintentos > 0) {
@@ -100,8 +99,7 @@ int utn_getNumero(int *pResultado, char *mensaje, char *mensajeError,
 	return retorno;
 }
 
-int utn_getPositivo(int *pResultado, char *mensaje, char *mensajeError,
-		int reintentos) {
+int utn_getPositivo(int *pResultado, char *mensaje, char *mensajeError,int reintentos) {
 	int bufferInt;
 	int retorno = -1;
 	while (reintentos > 0) {

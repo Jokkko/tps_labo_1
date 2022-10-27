@@ -4,7 +4,7 @@
  *  Created on: 14 oct. 2022
  *      Author: vazzr
  */
-
+#include "eJugador.h"
 #include "eConfederacion.h"
 #include "output.h"
 #include "input.h"
@@ -34,19 +34,22 @@ int HardcodeoConfederacion(eConfederacion hardcodeame[],int SIZE){
 
 int SwapConfederacion(eConfederacion confederacion[], int i,int j){
 	int retorno=-1;
-	eConfederacion aux;
+	if(confederacion != NULL){
+		retorno=1;
+		eConfederacion aux;
 
-	aux = confederacion[i];
-	confederacion[i] = confederacion[j];
-	confederacion[j] = aux;
+		aux = confederacion[i];
+		confederacion[i] = confederacion[j];
+		confederacion[j] = aux;
 
+	}
 	return retorno;
 }
 
-int BuscarIdConf(eConfederacion confederacion[],int SIZE,int id){
+int BuscarIndiceConf(eConfederacion confederacion[],int SIZE,int id){
 	int retorno =-1;
 	int i;
-	if(SIZE >0 && confederacion !=NULL){
+	if(SIZE >0 && confederacion !=NULL && id>-1){
 		for(i=0;i<SIZE;i++){
 			if(confederacion[i].isEmpty==LLENO && confederacion[i].id ==id ){
 				retorno =i;
@@ -56,3 +59,6 @@ int BuscarIdConf(eConfederacion confederacion[],int SIZE,int id){
 	}
 	return retorno;
 }
+
+
+

@@ -4,10 +4,10 @@
  *  Created on: 14 oct. 2022
  *      Author: vazzr
  */
-
+#include "eConfederacion.h"
 #ifndef EJUGADOR_H_
 #define EJUGADOR_H_
-#include "eConfederacion.h"
+
 
 typedef struct{
 
@@ -33,8 +33,6 @@ int AltaJugador(eJugador jugadores[],int SIZE, int IdAutoincremental,eConfederac
 
 int BajaJugador(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2);
 
-int ModificarJugador(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2);
-
 int ModificarConfederacion(eJugador jugadores[],int indice,int SIZE,eConfederacion confederacion[],int SIZE2);
 
 int ModificarNombre(eJugador jugadores[],int indice,int SIZE);
@@ -58,5 +56,15 @@ int ContadorJugadores(eJugador jugadores[],int SIZE);
 int PromedioSalarios(float salarios, int cantJugadores,float *pResultado);
 
 int JugadoresArribaPromedio(eJugador jugadores[],int SIZE);
+
+int OrdenarAlfabetico(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2);
+
+int OrdenarJugadorPorID(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2);
+
+int IDConfeMasAnios(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2);
+
+int ContarJugadoresPorConfe(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int *contador,int indiceConfe);
+
+int ContarJugadoresPorRegion(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2,char regionmax[]);
 
 #endif /* EJUGADOR_H_ */
