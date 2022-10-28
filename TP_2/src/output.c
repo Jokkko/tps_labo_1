@@ -67,10 +67,14 @@ int MostrarJugador(eJugador jugadores[],int SIZE,eConfederacion confederacion[],
 				   "|=====|===============|====================|====================|====================|====================|==============================|\n",
 				   "ID","NOMBRE","ANIOS DE CONTRATO","CONFEDERACION","NUMERO DE CAMISETA","POSICION","SALARIO");
 			for(int i=0;i<SIZE;i++){
-				for(int y=0;y<SIZE2;y++){
-					if(jugadores[i].isEmpty==LLENO && jugadores[i].idConfederacion==confederacion[y].id){
-						printf("|%-5d|%-15s|%-20d|%-20s|%-20d|%-20s|%-30.2f|\n",jugadores[i].id,jugadores[i].nombre,jugadores[i].aniosContrato,confederacion[y].nombre,jugadores[i].numeroCamiseta,
-								jugadores[i].posicion,jugadores[i].salario);
+				if(jugadores[i].isEmpty==LLENO){
+					for(int y=0;y<SIZE2;y++){
+						if(confederacion[y].isEmpty==LLENO){
+							if(jugadores[i].idConfederacion==confederacion[y].id){
+								printf("|%-5d|%-15s|%-20d|%-20s|%-20d|%-20s|%-30.2f|\n",jugadores[i].id,jugadores[i].nombre,jugadores[i].aniosContrato,confederacion[y].nombre,jugadores[i].numeroCamiseta,
+										jugadores[i].posicion,jugadores[i].salario);
+							}
+						}
 					}
 				}
 			}
@@ -89,7 +93,9 @@ int MostrarConfederacion(eConfederacion confederacion[],int SIZE){
 				   "|=====|===============|==============================|====================|\n",
 				   " ID  ","NOMBRE","REGION","ANIO DE CREACION");
 		for(int i=0;i<SIZE;i++){
-			printf("|%-5d|%-15s|%-30s|%-20d|\n",confederacion[i].id,confederacion[i].nombre,confederacion[i].region,confederacion[i].anioCreacion);
+			if(confederacion[i].isEmpty==LLENO){
+				printf("|%-5d|%-15s|%-30s|%-20d|\n",confederacion[i].id,confederacion[i].nombre,confederacion[i].region,confederacion[i].anioCreacion);
+			}
 		}
 		printf("|_____|_______________|______________________________|____________________|\n");
 	}

@@ -27,6 +27,20 @@ int BuscarIndiceConf(eConfederacion confederacion[],int SIZE,int id);
 
 int InicializarEstadoConf(eConfederacion confederacion[],int SIZE);
 
-int AltaConfederacion(eConfederacion confederacion[],int SIZE, int IdAutoincremental);
+int AltaConfederacion(int IdAutoincremental,eConfederacion confederacion[],int SIZE);
+
+int BuscarIdMaximo(eConfederacion confederacion[],int SIZE);
+
+int BuscarIndiceVacioConf(eConfederacion confederacion[],int SIZE);
+
+int BajaConfederacion(eConfederacion confederacion[],int SIZE);
+
+int ModificarNombreConfe(eConfederacion confederacion[],int indice,int SIZE);
+
+int ModificarRegionConfe(eConfederacion confederacion[],int indice,int SIZE);
+
+int ModificarAnio(eConfederacion confederacion[],int indice,int SIZE);
+
+int BuscarIdMin(eConfederacion confederacion[],int SIZE);
 
 #endif /* ECONFEDERACION_H_ */
