@@ -55,6 +55,8 @@ int BuscarIdJugador(eJugador jugadores[],int SIZE,int id){
 }
 
 
+
+
 int AltaJugador(eJugador jugadores[],int SIZE, int IdAutoincremental,eConfederacion confederacion[],int SIZE2){
 	int indice;
 	int error;
@@ -128,7 +130,7 @@ int BajaJugador(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int
 		OrdenarJugadorPorID(jugadores,SIZE,confederacion,SIZE2);
 		MostrarJugador(jugadores, SIZE, confederacion,SIZE2);
 		do{
-			error = utn_getNumero(&id, "Ingrese el id del jugador a dar de baja: ", "Error, Ingrese un id valido.",0, 4000, 1);
+			error = utn_getNumero(&id, "Ingrese el id del jugador a dar de baja: ", "Error, Ingrese un id valido.",1, 4000, 1);
 		}while(error==-1);
 
 
@@ -162,9 +164,8 @@ int ModificarConfederacion(eJugador jugadores[],int indice,int SIZE,eConfederaci
 		MostrarConfederacion(confederacion,SIZE2);
 		idMax = BuscarIdMaximo(confederacion,SIZE2);
 		idMin = BuscarIdMin(confederacion,SIZE2);
-		error = utn_getNumero(&jugadores[indice].idConfederacion, "Ingrese ID de la confederacion: ", "Error, Ingrese una id valida.",idMin, idMax , 1);
 		do{
-			error = utn_getNumero(&ConfederacionNueva,"\nIngrese ID de la confederacion: ","\nError ingrese un ID valido",100,105,1);
+			error = utn_getNumero(&ConfederacionNueva,"\nIngrese ID de la confederacion: ","\nError ingrese un ID valido",idMin,idMax,1);
 		}while(error ==-1);
 		do{
 			error = utn_getNumero(&confirmacion,"\nDesea confirmar la ID? 1.Si 2.No : ","\nError ingrese una opcion valida.",1,2,1);

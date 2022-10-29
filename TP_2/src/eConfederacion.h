@@ -89,28 +89,25 @@ int BajaConfederacion(eConfederacion confederacion[],int SIZE);
 /// \brief Funcion que se encarga de modificar el nombre de una confederacion cargada
 ///
 /// \param confederacion
-/// \param indice
 /// \param SIZE
 /// \return devuelve 1 si pudo lograrlo, 0 si cancelan la operacion y -1 si no se logro
-int ModificarNombreConfe(eConfederacion confederacion[],int indice,int SIZE);
+int ModificarNombreConfe(eConfederacion confederacion[],int SIZE);
 
 /// \fn int ModificarRegionConfe(eConfederacion[], int, int)
 /// \brief  Funcion que se encarga de modificar la region de una confederacion cargada
 ///
 /// \param confederacion
-/// \param indice
 /// \param SIZE
 /// \return devuelve 1 si pudo lograrlo, 0 si cancelan la operacion y -1 si no se logro
-int ModificarRegionConfe(eConfederacion confederacion[],int indice,int SIZE);
+int ModificarRegionConfe(eConfederacion confederacion[],int SIZE);
 
 /// \fn int ModificarAnio(eConfederacion[], int, int)
 /// \brief Funcion que se encarga de modificar el anio de creacion de una confederacion cargada
 ///
 /// \param confederacion
-/// \param indice
 /// \param SIZE
 /// \return devuelve 1 si pudo lograrlo, 0 si cancelan la operacion y -1 si no se logro
-int ModificarAnio(eConfederacion confederacion[],int indice,int SIZE);
+int ModificarAnio(eConfederacion confederacion[],int SIZE);
 
 /// \fn int BuscarIdMaximo(eConfederacion[], int)
 /// \brief Funcion que se encarga de encontrar el id minimo de un array de eConfederacion

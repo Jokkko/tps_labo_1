@@ -144,6 +144,7 @@ int BajaConfederacion(eConfederacion confederacion[],int SIZE){
 	int indice;
 
 	if(SIZE>0 && confederacion != NULL){
+
 		do{
 			error = utn_getNumero(&id, "Ingrese el id de la confederacion a dar de baja: ", "Error, Ingrese un id valido.",100, 200, 1);
 		}while(error==-1);
@@ -162,79 +163,117 @@ int BajaConfederacion(eConfederacion confederacion[],int SIZE){
 			else{
 				retorno=0;
 			}
+		}else{
+			printf("\nNo se encontro confederacion con esa id\n");
 		}
 	}
 	return retorno;
 }
 
-int ModificarNombreConfe(eConfederacion confederacion[],int indice,int SIZE){
+int ModificarNombreConfe(eConfederacion confederacion[],int SIZE){
 	int retorno= -1;
 	char NombreNuevo[50];
 	int confirmacion;
 	int error;
+	int indice;
+	int id;
 	if(confederacion !=NULL && SIZE>0){
 		do{
-			error =getNombre(NombreNuevo,50,"\nIngrese Nombre de la confederacion: ");
-		}while(error ==-1);
-		fflush(stdin);
-		do{
-			error = utn_getNumero(&confirmacion,"\nDesea confirmar el nombre? 1.Si 2.No : ","\nError ingrese una opcion valida.",1,2,1);
-		}while(error ==-1);
+			error = utn_getNumero(&id, "Ingrese el id de la confederacion a dar de baja: ", "Error, Ingrese un id valido.",100, 200, 1);
+		}while(error==-1);
 
-		if(confirmacion==1){
-			strcpy(confederacion[indice].nombre,NombreNuevo);
-			retorno=1;
-		}
-			else{
-		retorno=0;
+
+		indice = BuscarIndiceConf(confederacion,SIZE,id);
+		if(indice!=-1){
+			do{
+				error =getNombre(NombreNuevo,50,"\nIngrese Nombre de la confederacion: ");
+			}while(error ==-1);
+			fflush(stdin);
+			do{
+				error = utn_getNumero(&confirmacion,"\nDesea confirmar el nombre? 1.Si 2.No : ","\nError ingrese una opcion valida.",1,2,1);
+			}while(error ==-1);
+
+			if(confirmacion==1){
+				strcpy(confederacion[indice].nombre,NombreNuevo);
+				retorno=1;
+			}
+				else{
+			retorno=0;
+			}
+		}else{
+			printf("\nNo se encontro confederacion con esa id\n");
 		}
 	}
 	return retorno;
 }
 
-int ModificarRegionConfe(eConfederacion confederacion[],int indice,int SIZE){
+int ModificarRegionConfe(eConfederacion confederacion[],int SIZE){
 	int retorno= -1;
 	char NombreNuevo[50];
 	int confirmacion;
 	int error;
+	int id;
+	int indice;
 	if(confederacion !=NULL && SIZE>0){
 		do{
-			error =getNombre(NombreNuevo,50,"\nIngrese region: ");
-		}while(error ==-1);
-		fflush(stdin);
-		do{
-			error = utn_getNumero(&confirmacion,"\nDesea confirmar la region? 1.Si 2.No : ","\nError ingrese una opcion valida.",1,2,1);
-		}while(error ==-1);
+			error = utn_getNumero(&id, "Ingrese el id de la confederacion a dar de baja: ", "Error, Ingrese un id valido.",100, 200, 1);
+		}while(error==-1);
 
-		if(confirmacion==1){
-			strcpy(confederacion[indice].region,NombreNuevo);
-			retorno=1;
-		}
-			else{
-		retorno=0;
+
+		indice = BuscarIndiceConf(confederacion,SIZE,id);
+		if(indice!=-1){
+			do{
+				error =getNombre(NombreNuevo,50,"\nIngrese region: ");
+			}while(error ==-1);
+			fflush(stdin);
+			do{
+				error = utn_getNumero(&confirmacion,"\nDesea confirmar la region? 1.Si 2.No : ","\nError ingrese una opcion valida.",1,2,1);
+			}while(error ==-1);
+
+			if(confirmacion==1){
+				strcpy(confederacion[indice].region,NombreNuevo);
+				retorno=1;
+			}
+				else{
+			retorno=0;
+			}
+		}else{
+			printf("\nNo se encontro confederacion con esa id\n");
 		}
 	}
 	return retorno;
 }
 
-int ModificarAnio(eConfederacion confederacion[],int indice,int SIZE){
+int ModificarAnio(eConfederacion confederacion[],int SIZE){
 	int retorno= -1;
 	int anioNuevo;
 	int confirmacion;
 	int error;
+	int id;
+	int indice;
 	if(confederacion !=NULL && SIZE>0){
 		do{
-			error =utn_getNumero(&anioNuevo,"\nIngrese anio: ","\nError ingrese un numero valido.",1,2022,1);
-		}while(error ==-1);
-		do{
-			error = utn_getNumero(&confirmacion,"\nDesea confirmar el anio? 1.Si 2.No : ","\nError ingrese una opcion valida.",1,2,1);
-		}while(error ==-1);
-		if(confirmacion==1){
-			confederacion[indice].anioCreacion=anioNuevo;
-			retorno=1;
-		}
-		else{
-			retorno=0;
+			error = utn_getNumero(&id, "Ingrese el id de la confederacion a dar de baja: ", "Error, Ingrese un id valido.",100, 200, 1);
+		}while(error==-1);
+
+
+		indice = BuscarIndiceConf(confederacion,SIZE,id);
+		if(indice!=-1){
+			do{
+				error =utn_getNumero(&anioNuevo,"\nIngrese anio: ","\nError ingrese un numero valido.",1,2022,1);
+			}while(error ==-1);
+			do{
+				error = utn_getNumero(&confirmacion,"\nDesea confirmar el anio? 1.Si 2.No : ","\nError ingrese una opcion valida.",1,2,1);
+			}while(error ==-1);
+			if(confirmacion==1){
+				confederacion[indice].anioCreacion=anioNuevo;
+				retorno=1;
+			}
+			else{
+				retorno=0;
+			}
+		}else{
+			printf("\nNo se econtro confederacion con esa ID\n");
 		}
 	}
 	return retorno;

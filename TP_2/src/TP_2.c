@@ -24,7 +24,7 @@ int main(void){
 	eJugador jugadores[CANT_JUGADORES];
 
 	int opcionPrincipal,opcionModificar,opcionInformes;
-	int idAutoincremental=0;
+	int idAutoincremental=1;
 	int banderaEstado;
 	int error,id,indice;
 	int confirmacion;
@@ -57,7 +57,7 @@ int main(void){
 				OrdenarJugadorPorID(jugadores,CANT_JUGADORES,confederaciones,CANT_CONFEDERACIONES);
 				MostrarJugador(jugadores, CANT_JUGADORES, confederaciones,CANT_CONFEDERACIONES);
 				do{
-					error = utn_getNumero(&id, "Ingrese el id del jugador a modificar: ", "Error, Ingrese un id valido.",0, 4000, 1);
+					error = utn_getNumero(&id, "Ingrese el id del jugador a modificar: ", "Error, Ingrese un id valido.",1, 4000, 1);
 				}while(error==-1);
 
 				indice = BuscarIdJugador(jugadores,CANT_JUGADORES,id);
@@ -91,6 +91,8 @@ int main(void){
 							break;
 						}
 					}while(opcionModificar!=7);
+				}else{
+					printf("\nNo se encontro al jugador\n");
 				}
 			}
 			else{
