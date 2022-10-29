@@ -33,7 +33,7 @@ int main(void){
 	InicializarEstado(jugadores,CANT_JUGADORES);
 
 	do{
-		banderaEstado=DetectarJugadores(jugadores,CANT_JUGADORES);
+		banderaEstado=ContadorJugadores(jugadores,CANT_JUGADORES);
 		opcionPrincipal= MostrarMenu("1. ALTA DE JUGADOR:","2. BAJA DE JUGADOR:","3. MODIFICACIÓN DE JUGADOR:","4. INFORMES:","5. SALIR:"," "," ","Menu Principal");
 		switch(opcionPrincipal){
 		case 1:

@@ -107,7 +107,7 @@ int MostrarConfederacion(eConfederacion confederacion[],int SIZE){
 
 
 int MostrarPromedioYSalarios(eJugador jugadores[],int SIZE){
-	int retorno;
+	int retorno=-1;
 	float acumuladorSalarios=0;
 	float promedioTotal;
 	int cantJugadores;
@@ -159,6 +159,7 @@ int MostrarConfeMasAnios(eJugador jugadores[],int SIZE,eConfederacion confederac
 	int retorno=-1;
 	int id;
 	if(jugadores !=NULL && SIZE>0 && confederacion != NULL && SIZE2>0){
+		retorno = 1;
 		id=IDConfeMasAnios(jugadores,SIZE,confederacion,SIZE2);
 		id=BuscarIndiceConf(confederacion,SIZE2,id);
 		printf("\nLa confederacion con mayor cantidad de anios de contratos es: %s\n",confederacion[id].nombre);
@@ -172,7 +173,8 @@ int MostrarPorcentajeConfe(eJugador jugadores[],int SIZE,eConfederacion confeder
 	int contador;
 	float porcentaje;
 	if(jugadores !=NULL && SIZE>0 && confederacion != NULL && SIZE2>0){
-		totalJugadores = DetectarJugadores(jugadores,SIZE);
+		retorno =1;
+		totalJugadores = ContadorJugadores(jugadores,SIZE);
 		for(int i=0;i<SIZE2;i++){
 			if(confederacion[i].isEmpty==LLENO){
 				ContarJugadoresPorConfe(jugadores,SIZE,confederacion,&contador,i);
@@ -189,6 +191,7 @@ int MostrarRegionMax(eJugador jugadores[],int SIZE,eConfederacion confederacion[
 	char regionmax[50];
 	int indiceConfe;
 	if(jugadores !=NULL && SIZE>0 && confederacion !=NULL && SIZE2>0){
+		retorno=1;
 		indiceConfe = ContarJugadoresPorRegion(jugadores,SIZE,confederacion,SIZE2,regionmax);
 		printf("\nLa region con mas cantidad de jugadores es %s\n",regionmax);
 

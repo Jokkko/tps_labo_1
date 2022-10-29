@@ -226,16 +226,28 @@ int getPosicion(char *string,int SIZE,char *mensaje){
 	return retorno;
 }
 
+int getShort(short *pResultado) {
+	int retorno = -1;
+	char buffer[64];
+	if (pResultado != NULL) {
+		if (myGets(buffer, sizeof(buffer)) == 0 && esNumerica(buffer)) {
+			*pResultado = atoi(buffer);
+			retorno = 0;
+		}
+	}
+	return retorno;
+}
+
 int utn_getShort(short *pResultado, char *mensaje, char *mensajeError,
 		short minimo, short maximo, int reintentos) {
-	int bufferInt;
+	short buffershort;
 	int retorno = -1;
 	while (reintentos > 0) {
 		reintentos--;
 		printf("%s", mensaje);
-		if (getInt(&bufferInt) == 0) {
-			if (bufferInt >= minimo && bufferInt <= maximo) {
-				*pResultado = bufferInt;
+		if (getShort(&buffershort) == 0) {
+			if (buffershort >= minimo && buffershort <= maximo) {
+				*pResultado = buffershort;
 				retorno = 0;
 				break;
 			}

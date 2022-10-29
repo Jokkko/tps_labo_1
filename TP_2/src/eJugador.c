@@ -309,21 +309,6 @@ int ModificarAniosContrato(eJugador jugadores[],int indice,int SIZE){
 	return retorno;
 }
 
-
-
-int DetectarJugadores(eJugador jugadores[],int SIZE){
-	int retorno =0;
-	if(jugadores !=NULL && SIZE>0){
-		for(int i=0;i<SIZE;i++){
-			if(jugadores[i].isEmpty==LLENO){
-				retorno++;
-			}
-		}
-	}
-	return retorno;
-}
-
-
 float TotalDeSalarios(eJugador jugadores[],int SIZE,float *pAcumulador){
 	int retorno=-1;
 
@@ -353,7 +338,7 @@ int ContadorJugadores(eJugador jugadores[],int SIZE){
 
 
 int PromedioSalarios(float salarios, int cantJugadores,float *pResultado){
-	int retorno;
+	int retorno=-1;
 
 	if(salarios>0 && cantJugadores>0 && pResultado !=NULL){
 		retorno=1;
