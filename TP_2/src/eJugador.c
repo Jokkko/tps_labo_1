@@ -369,7 +369,7 @@ int JugadoresArribaPromedio(eJugador jugadores[],int SIZE){
 int OrdenarAlfabetico(eJugador jugadores[],int SIZE,eConfederacion confederacion[],int SIZE2){
 	int retorno=-1;
 	int indiceConfI;
-	int indiceConfJ;
+	//int indiceConfJ;
 	if(jugadores !=NULL && SIZE>0 && confederacion != NULL && SIZE2>0){
 		retorno=1;
 		for(int i=0; i<SIZE-1; i++){
@@ -377,8 +377,8 @@ int OrdenarAlfabetico(eJugador jugadores[],int SIZE,eConfederacion confederacion
 				for( int j=i+1; j<SIZE; j++ ){
 					if(jugadores[j].isEmpty ==LLENO){
 						indiceConfI= BuscarIndiceConf(confederacion,SIZE2,jugadores[i].idConfederacion);
-						indiceConfJ = BuscarIndiceConf(confederacion,SIZE2,jugadores[j].idConfederacion);
-						if( strcmp(confederacion[indiceConfI].nombre,confederacion[indiceConfJ].nombre)>0 ){
+
+						if( strcmp(confederacion[indiceConfI].nombre,confederacion[indiceConfI].nombre)>0 ){
 
 							 SwapJugador(jugadores,i,j);
 						}
