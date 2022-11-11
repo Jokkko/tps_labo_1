@@ -31,6 +31,8 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
 			}
 		}
 		printf("\nJugadores cargados con exito\n");
+	}else{
+		printf("\nERROR no se encontro el archivo\n");
 	}
 
     return 1;
@@ -45,7 +47,27 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
  */
 int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador)
 {
-    return 1;
+
+	Jugador* pJugador;
+	int leidos;
+
+	if(pFile != NULL && pArrayListJugador != NULL){
+		ll_clear(pArrayListJugador);
+		while(feof(pFile) == 0){
+			pJugador = jug_new();
+			leidos = fread(pJugador,sizeof(Jugador),1,pFile);
+			if(leidos ==1){
+				ll_add(pArrayListJugador,pJugador);
+			}
+		}
+
+			printf("\nJugadores cargados con exito\n");
+		}else{
+			printf("\nERROR no se encontro el archivo\n");
+		}
+
+	    return 1;
+
 }
 
 
@@ -75,6 +97,8 @@ int parser_SeleccionFromText(FILE* pFile , LinkedList* pArrayListSeleccion)
 			}
 		}
 		printf("Selecciones cargadas con exito\n");
+	}else{
+		printf("\nERROR no se encontro el archivo\n");
 	}
     return 1;
 }

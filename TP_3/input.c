@@ -228,6 +228,19 @@ int getPosicion(char *string,int SIZE,char *mensaje){
 	return retorno;
 }
 
+int getConfederacion(char *string,int SIZE,char *mensaje){
+	int retorno;
+
+	getString(string,SIZE,mensaje);
+
+		if( strcmpi(string,"AFC")==0 || strcmpi(string,"CAF")==0 || strcmpi(string,"CONCACAF")==0 ||strcmpi(string,"CONMEBOL")==0 ||strcmpi(string,"UEFA")==0){
+			retorno=0;
+		}else{
+			retorno=-1;
+		}
+	return retorno;
+}
+
 int getNacionalidad(char *string,int SIZE,char *mensaje){
 	int retorno;
 

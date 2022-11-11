@@ -9,7 +9,14 @@ Jugador* jug_new(){
 	Jugador* pJugador;
 
 		pJugador = (Jugador*) malloc(sizeof(Jugador));
-
+		if(pJugador!= NULL){
+			jug_setId(pJugador,0);
+			jug_setNombreCompleto(pJugador,"0");
+			jug_setPosicion(pJugador,"0");
+			jug_setNacionalidad(pJugador,"0");
+			jug_setEdad(pJugador,0);
+			jug_setIdSeleccion(pJugador,0);
+		}
 
     return pJugador;
 }
@@ -181,5 +188,70 @@ int jug_getSIdSeleccion(Jugador* this,int* idSeleccion){
 		retorno = 0;
 	}
 
+	return retorno;
+}
+//------------------O R D E N A M I E N T O---------------------------------
+
+int OrdenarPorNacionalidad(void* jugador1 ,void* jugador2 ){
+	int retorno=0;
+
+	Jugador* pJugador1;
+	Jugador* pJugador2;
+
+	char nacionalidad1[100];
+	char nacionalidad2[100];
+	pJugador1=(Jugador*) jugador1;
+	pJugador2=(Jugador*) jugador2;
+	jug_getNacionalidad(pJugador1,nacionalidad1);
+	jug_getNacionalidad(pJugador2,nacionalidad2);
+	if(strcmpi(nacionalidad1,nacionalidad2)>0){
+		retorno =1;
+	}else{
+		if(strcmpi(nacionalidad1,nacionalidad2)<0){
+			retorno = -1;
+		}
+	}
+	return retorno;
+}
+int OrdenarPorEdad(void* jugador1 ,void* jugador2 ){
+	int retorno=0;
+
+	Jugador* pJugador1;
+	Jugador* pJugador2;
+
+	int edad1;
+	int edad2;
+	pJugador1=(Jugador*) jugador1;
+	pJugador2=(Jugador*) jugador2;
+	jug_getEdad(pJugador1,&edad1);
+	jug_getEdad(pJugador2,&edad2);
+	if(edad1>edad2){
+		retorno =1;
+	}else{
+		if(edad1<edad2){
+			retorno = -1;
+		}
+	}
+	return retorno;
+}
+int OrdenarPorNombre(void* jugador1 ,void* jugador2){
+	int retorno=0;
+
+	Jugador* pJugador1;
+	Jugador* pJugador2;
+
+	char nombreCompleto1[100];
+	char nombreCompleto2[100];
+	pJugador1=(Jugador*) jugador1;
+	pJugador2=(Jugador*) jugador2;
+	jug_getNombreCompleto(pJugador1,nombreCompleto1);
+	jug_getNombreCompleto(pJugador2,nombreCompleto2);
+	if(strcmpi(nombreCompleto1,nombreCompleto2)>0){
+		retorno =1;
+	}else{
+		if(strcmpi(nombreCompleto1,nombreCompleto2)<0){
+			retorno = -1;
+		}
+	}
 	return retorno;
 }

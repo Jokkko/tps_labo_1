@@ -7,7 +7,12 @@
 Seleccion* selec_new(){
 	Seleccion* pSeleccion;
 		pSeleccion = (Seleccion*) malloc(sizeof(Seleccion));
-
+		if(pSeleccion!=NULL){
+			pSeleccion->id=0;
+			strcpy(pSeleccion->pais,"0");
+			strcpy(pSeleccion->confederacion,"0");
+			selec_setConvocados(pSeleccion,0);
+		}
     return pSeleccion;
 }
 
@@ -20,10 +25,12 @@ Seleccion* selec_newParametros(char* idStr,char* paisStr,char* confederacionStr,
 		if(pSeleccion != NULL && esNumerica(idStr) == 1 && esNumerica(convocadosStr) == 1){
 			convocados = atoi(convocadosStr);
 			id = atoi(idStr);
-			selec_setId(pSeleccion,id);
-			selec_setConvocados(pSeleccion,convocados);
-			selec_setPais(pSeleccion,paisStr);
-			selec_setConfederacion(pSeleccion,confederacionStr);
+			if(id>0 && ( convocados >-1 && convocados <= 22)){
+				pSeleccion->id = id;
+				strcpy(pSeleccion->pais,paisStr);
+				strcpy(pSeleccion->confederacion,confederacionStr);
+				selec_setConvocados(pSeleccion,convocados);
+			}
 		}
 	}
 	return pSeleccion;
@@ -95,33 +102,26 @@ int selec_setConvocados(Seleccion* this,int convocados){
 	}
 	return retorno;
 }
+//------------------O R D E N A M I E N T O---------------------------------
+int OrdenarPorConfederacion(void* seleccion1,void* seleccion2){
+	int retorno=0;
 
-int selec_setId(Seleccion* this,int id){
-	int retorno=-1;
+	Seleccion* pSeleccion1;
+	Seleccion* pSeleccion2;
 
-	if(this!=NULL && id > 0){
-		this->id = id;
+	char confederacion1[100];
+	char confederacion2[100];
+	pSeleccion1=(Seleccion*) seleccion1;
+	pSeleccion2=(Seleccion*) seleccion2;
+	selec_getConfederacion(pSeleccion1,confederacion1);
+	selec_getConfederacion(pSeleccion2,confederacion2);
+	if(strcmpi(confederacion1,confederacion2)>0){
 		retorno =1;
+	}else{
+		if(strcmpi(confederacion1,confederacion2)<0){
+			retorno = -1;
+		}
 	}
 	return retorno;
 }
 
-int selec_setPais(Seleccion* this,char* pais){
-	int retorno=-1;
-
-	if(this!=NULL && pais != NULL){
-			strcpy(this->pais,pais);
-			retorno =1;
-		}
-		return retorno;
-}
-
-int selec_setConfederacion(Seleccion* this,char* confederacion){
-	int retorno=-1;
-
-	if(this!=NULL && confederacion != NULL){
-			strcpy(this->confederacion,confederacion);
-			retorno =1;
-		}
-		return retorno;
-}

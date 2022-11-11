@@ -149,4 +149,5 @@ int utn_getShort(short *pResultado, char *mensaje, char *mensajeError,short mini
 
 int getNacionalidad(char *string,int SIZE,char *mensaje);
 
+int getConfederacion(char *string,int SIZE,char *mensaje);
 #endif /* INPUT_H_ */

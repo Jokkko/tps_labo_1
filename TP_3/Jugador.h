@@ -36,5 +36,8 @@ int jug_getEdad(Jugador* this,int* edad);
 int jug_setIdSeleccion(Jugador* this,int idSeleccion);
 int jug_getSIdSeleccion(Jugador* this,int* idSeleccion);
 
+int OrdenarPorNacionalidad(void* jugador1 ,void* jugador2 );
+int OrdenarPorEdad(void* jugador1 ,void* jugador2 );
+int OrdenarPorNombre(void* jugador1 ,void* jugador2);
 
 #endif // jug_H_INCLUDED
