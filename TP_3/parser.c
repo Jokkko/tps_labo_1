@@ -20,8 +20,9 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
 	char posicionAux[30];
 	char nacionalidadAux[30];
 	char idSeleccionAux[30];
+	int retorno=-1;
 	if(pFile != NULL && pArrayListJugador != NULL){
-
+		retorno=1;
 		fscanf(pFile,"%s\n",nombreCompletoAux);
 		while(feof(pFile) == 0){
 			retornoFscanf = fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n",idAux,nombreCompletoAux,edadAux,posicionAux,nacionalidadAux,idSeleccionAux);
@@ -35,7 +36,7 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
 		printf("\nERROR no se encontro el archivo\n");
 	}
 
-    return 1;
+    return retorno;
 }
 
 /** \brief Parsea los datos de los jugadores desde el archivo binario.
@@ -50,8 +51,9 @@ int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador)
 
 	Jugador* pJugador;
 	int leidos;
-
+	int retorno=-1;
 	if(pFile != NULL && pArrayListJugador != NULL){
+		retorno=1;
 		ll_clear(pArrayListJugador);
 		while(feof(pFile) == 0){
 			pJugador = jug_new();
@@ -66,7 +68,7 @@ int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador)
 			printf("\nERROR no se encontro el archivo\n");
 		}
 
-	    return 1;
+	    return retorno;
 
 }
 
@@ -86,8 +88,10 @@ int parser_SeleccionFromText(FILE* pFile , LinkedList* pArrayListSeleccion)
 	char paisAux[50];
 	char confederacionAux[30];
 	char convocadosAux[30];
+	int retorno=-1;
 
 	if(pFile != NULL && pArrayListSeleccion != NULL){
+		retorno=1;
 		fscanf(pFile,"%s\n",paisAux);
 		while(feof(pFile) == 0){
 			retornoFscanf = fscanf(pFile,"%[^,],%[^,],%[^,],%[^\n]\n",idAux,paisAux,confederacionAux,convocadosAux);
@@ -100,6 +104,6 @@ int parser_SeleccionFromText(FILE* pFile , LinkedList* pArrayListSeleccion)
 	}else{
 		printf("\nERROR no se encontro el archivo\n");
 	}
-    return 1;
+    return retorno;
 }
 
