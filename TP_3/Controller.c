@@ -177,6 +177,7 @@ int controller_listarJugadoresYSeleccion(LinkedList* pArrayListJugador,LinkedLis
 	char nombreSeleccion[100];
 	int retorno =-1;
 	if(pArrayListJugador !=NULL && pArrayListSeleccion!=NULL){
+		retorno=1;
 		largollJugador = ll_len(pArrayListJugador);
 		largollSeleccion = ll_len(pArrayListSeleccion);
 
