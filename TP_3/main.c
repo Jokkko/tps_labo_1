@@ -26,25 +26,38 @@ int main()
         switch(option)
         {
             case 1:
-            	controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores);
-            	controller_cargarSeleccionesDesdeTexto("selecciones.csv",listaSelecciones);
+            	if(controller_cargarJugadoresDesdeTexto("jugadores.csv",listaJugadores)==-1){
+            		printf("\nOcurrio un error al cargar los jugadores desde el csv\n");
+            	}
+            	if(controller_cargarSeleccionesDesdeTexto("selecciones.csv",listaSelecciones)==-1){
+            		printf("\nOcurrio un error al cargar las selecciones desde el csv\n");
+            	}
                 break;
             case 2:
-            	controller_agregarJugador(listaJugadores);
-            	banderaCambios=1;
+            	if(controller_agregarJugador(listaJugadores)==-1){
+            		printf("\nOcurrio un error al dar de alta al jugador\n");
+            	}else{
+            		banderaCambios=1;
+            	}
             	break;
             case 3:
             	if(ll_isEmpty(listaJugadores)==0){
-					controller_editarJugador(listaJugadores);
-					banderaCambios=1;
+            		if(controller_editarJugador(listaJugadores)==-1){
+            			printf("\nOcurrio un error al editar al jugador\n");
+            		}else{
+            			banderaCambios=1;
+            		}
             	}else{
             		printf("\nError, no se puede acceder si no hay jugadores cargados.\n");
             	}
             	break;
             case 4:
             	if(ll_isEmpty(listaJugadores)==0){
-					controller_removerJugador(listaJugadores,listaSelecciones);
-					banderaCambios=1;
+            		if(controller_removerJugador(listaJugadores,listaSelecciones)==-1){
+            			printf("\nOcurrio un error al remover al jugador\n");
+            		}else{
+            			banderaCambios=1;
+            		}
             	}else{
             	    printf("\nError, no se puede acceder si no hay jugadores cargados.\n");
             	}
@@ -55,14 +68,20 @@ int main()
                 		opcionListados = MostrarMenu4Opc("\n1.TODOS LOS JUGADORES.","\n2.TODAS LAS SELECCIONES.","\n3.JUGADORES CONVOCADOS","\n4.SALIR","\nMENU LISTADOS\n");
                     	switch(opcionListados){
                     	case 1:
-                    		controller_listarJugadoresYSeleccion(listaJugadores,listaSelecciones);
+                    		if(controller_listarJugadoresYSeleccion(listaJugadores,listaSelecciones)==-1){
+                    			printf("\nOcurrio un error al listar los jugadores y sus selecciones\n");
+                    		}
                     		break;
                     	case 2:
-                    		controller_listarSelecciones(listaSelecciones);
+                    		if(controller_listarSelecciones(listaSelecciones)==-1){
+                    			printf("\nOcurrio un error al listar las selecciones\n");
+                    		}
                     		break;
                     	case 3:
                     		if(controller_detectarConvocados(listaSelecciones)==1){
-                    			controller_listarJugadoresConvocados(listaJugadores,listaSelecciones);
+                    			if(controller_listarJugadoresConvocados(listaJugadores,listaSelecciones)==-1){
+                        			printf("\nOcurrio un error al listar los jugadores convocados\n");
+                        		}
                     		}else{
                     			printf("\nNo hay jugadores convocados\n");
                     		}
@@ -82,13 +101,19 @@ int main()
                 		opcionConvocar = MostrarMenu3Opc("\n1.CONVOCAR.","\n2.QUITAR DE LA SELECCIÓN.","\n3.Salir","\nMENU CONVOCACION\n");
                     	switch(opcionConvocar){
                     	case 1:
-                    		controller_convocarJugadores(listaJugadores,listaSelecciones);
-                    		banderaCambios=1;
+                    		if(controller_convocarJugadores(listaJugadores,listaSelecciones)==-1){
+                    			printf("\nOcurrio un error al convocar jugadores\n");
+                    		}else{
+                    			banderaCambios=1;
+                    		}
                     		break;
                     	case 2:
                     		if(controller_detectarConvocados(listaSelecciones)==1){
-                        		controller_desconvocarJugadores(listaJugadores,listaSelecciones);
+                        		if(controller_desconvocarJugadores(listaJugadores,listaSelecciones)==-1){
+                        			printf("\nOcurrio un error al desconvocar el jugador\n");
+                        		}else{
                         		banderaCambios=1;
+                        		}
                     		}else{
                     			printf("\nNo hay jugadores convocados\n");
                     		}
@@ -109,20 +134,40 @@ int main()
                 		opcionOrdenar = MostrarMenu5Opc("1.JUGADORES POR NACIONALIDAD.\n","2.SELECCIONES POR CONFEDERACIÓN.\n","3.JUGADORES POR EDAD.\n","4.JUGADORES POR NOMBRE.\n","5.Salir.","MENU ORDENAR\n");
                     	switch(opcionOrdenar){
                     	case 1:
-                    		ll_sort(listaJugadores, OrdenarPorNacionalidad, 1);
-                    		controller_listarJugadores(listaJugadores);
+                    		if(ll_sort(listaJugadores, OrdenarPorNacionalidad, 1)==-1){
+                    			printf("\nOcurrio un error al ordenar la lista de jugadores\n");
+                    		}else{
+                    			if(controller_listarJugadores(listaJugadores)==-1){
+                        			printf("\nOcurrio un error al listar los jugadores\n");
+                        		}
+                    		}
                     		break;
                     	case 2:
-                    		ll_sort(listaSelecciones, OrdenarPorConfederacion, 1);
-                    		controller_listarSelecciones(listaSelecciones);
+                    		if(ll_sort(listaSelecciones, OrdenarPorConfederacion, 1)==-1){
+                    			printf("\nOcurrio un error al ordenar la lista de jugadores\n");
+                    		}else{
+                    			if(controller_listarJugadores(listaJugadores)==-1){
+                        			printf("\nOcurrio un error al listar los jugadores\n");
+                        		}
+                    		}
                     		break;
                     	case 3:
-                    		ll_sort(listaJugadores, OrdenarPorEdad, 1);
-                    		controller_listarJugadores(listaJugadores);
+                    		if(ll_sort(listaJugadores, OrdenarPorEdad, 1)==-1){
+                    			printf("\nOcurrio un error al ordenar la lista de jugadores\n");
+                    		}else{
+                    			if(controller_listarJugadores(listaJugadores)==-1){
+                        			printf("\nOcurrio un error al listar los jugadores\n");
+                        		}
+                    		}
                     		break;
                     	case 4:
-                    		ll_sort(listaJugadores, OrdenarPorNombre, 1);
-                    		controller_listarJugadores(listaJugadores);
+                    		if(ll_sort(listaJugadores, OrdenarPorNombre, 1)==-1){
+                    			printf("\nOcurrio un error al ordenar la lista de jugadores\n");
+                    		}else{
+                    			if(controller_listarJugadores(listaJugadores)==-1){
+                        			printf("\nOcurrio un error al listar los jugadores\n");
+                        		}
+                    		}
                     		break;
                     	case 5:
                     		printf("Saliendo...\n");
@@ -136,16 +181,23 @@ int main()
             	break;
             case 8:
             	if(ll_isEmpty(listaJugadores)==0 && ll_isEmpty(listaSelecciones)==0 ){
-            		controller_filtrarJugadoresConvocados(listaJugadores,listaSelecciones,listaConvocados);
-            		banderaCase8=1;
+            		if(controller_filtrarJugadoresConvocados(listaJugadores,listaSelecciones,listaConvocados)==-1){
+            			printf("\nOcurrio un error al ordenar la lista de jugadores\n");
+            		}else{
+            			banderaCase8=1;
+            		}
             	}else{
             		printf("\nError, no se puede acceder si no hay jugadores y selecciones cargadas.\n");
             	}
             	break;
             case 9:
             	if((ll_isEmpty(listaJugadores)==0 && ll_isEmpty(listaSelecciones)==0 && ll_isEmpty(listaConvocados)==0) && banderaCase8==1){
-					controller_cargarJugadoresDesdeBinario("JugadoresConvocados.bin",listaConvocados);
-					controller_listarJugadoresYSeleccion(listaConvocados,listaSelecciones);
+					if(controller_cargarJugadoresDesdeBinario("JugadoresConvocados.bin",listaConvocados)==-1){
+						printf("\nOcurrio un error al cargar la lista de jugadores desde el archivo binario\n");
+					}
+					if(controller_listarJugadoresYSeleccion(listaConvocados,listaSelecciones)==-1){
+						printf("\nOcurrio un error al listar los jugadores y sus selecciones\n");
+					}
             	}else{
             		printf("\nError, no hay jugadores para cargar al archivo\n");
             	}
@@ -153,9 +205,15 @@ int main()
             	break;
             case 10:
             	if(banderaCambios==1){
-					controller_guardarSeleccionesModoTexto("selecciones.csv",listaSelecciones);
-					controller_guardarJugadoresModoTexto("jugadores.csv",listaJugadores);
-					banderaCambios=0;
+					if(controller_guardarSeleccionesModoTexto("selecciones.csv",listaSelecciones)==-1){
+						printf("\nOcurrio un error al guardar los datos de las selecciones en el archivo\n");
+					}else{
+						if(controller_guardarJugadoresModoTexto("jugadores.csv",listaJugadores)==1){
+							printf("\nnOcurrio un error al guardar los datos de los jugadores en el archivo\n");
+						}else{
+							banderaCambios=0;
+						}
+					}
             	}else{
             		printf("\nNo hay cambios para hacer\n");
             	}
