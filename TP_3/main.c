@@ -50,7 +50,7 @@ int main()
             	}
             	break;
             case 5:
-            	if(ll_isEmpty(listaJugadores)==0 ||ll_isEmpty(listaSelecciones)==0 ){
+            	if(ll_isEmpty(listaJugadores)==0 && ll_isEmpty(listaSelecciones)==0 ){
                 	do{
                 		opcionListados = MostrarMenu4Opc("\n1.TODOS LOS JUGADORES.","\n2.TODAS LAS SELECCIONES.","\n3.JUGADORES CONVOCADOS","\n4.SALIR","\nMENU LISTADOS\n");
                     	switch(opcionListados){
@@ -61,7 +61,11 @@ int main()
                     		controller_listarSelecciones(listaSelecciones);
                     		break;
                     	case 3:
+                    		if(controller_detectarConvocados(listaSelecciones)==1){
                     			controller_listarJugadoresConvocados(listaJugadores,listaSelecciones);
+                    		}else{
+                    			printf("\nNo hay jugadores convocados\n");
+                    		}
                     		break;
                     	case 4:
                     		printf("Saliendo...");
@@ -73,7 +77,7 @@ int main()
             	}
             	break;
             case 6:
-            	if(ll_isEmpty(listaJugadores)==0 || ll_isEmpty(listaSelecciones)==0 ){
+            	if(ll_isEmpty(listaJugadores)==0 && ll_isEmpty(listaSelecciones)==0 ){
                 	do{
                 		opcionConvocar = MostrarMenu3Opc("\n1.CONVOCAR.","\n2.QUITAR DE LA SELECCIÓN.","\n3.Salir","\nMENU CONVOCACION\n");
                     	switch(opcionConvocar){
@@ -82,8 +86,12 @@ int main()
                     		banderaCambios=1;
                     		break;
                     	case 2:
-                    		controller_desconvocarJugadores(listaJugadores,listaSelecciones);
-                    		banderaCambios=1;
+                    		if(controller_detectarConvocados(listaSelecciones)==1){
+                        		controller_desconvocarJugadores(listaJugadores,listaSelecciones);
+                        		banderaCambios=1;
+                    		}else{
+                    			printf("\nNo hay jugadores convocados\n");
+                    		}
                     		break;
                     	case 3:
                     		printf("Saliendo...");
@@ -96,7 +104,7 @@ int main()
 
             	break;
             case 7:
-            	if(ll_isEmpty(listaJugadores)==0 || ll_isEmpty(listaSelecciones)==0 ){
+            	if(ll_isEmpty(listaJugadores)==0 && ll_isEmpty(listaSelecciones)==0 ){
                 	do{
                 		opcionOrdenar = MostrarMenu5Opc("1.JUGADORES POR NACIONALIDAD.\n","2.SELECCIONES POR CONFEDERACIÓN.\n","3.JUGADORES POR EDAD.\n","4.JUGADORES POR NOMBRE.\n","5.Salir.","MENU ORDENAR\n");
                     	switch(opcionOrdenar){
@@ -135,12 +143,11 @@ int main()
             	}
             	break;
             case 9:
-            	if((ll_isEmpty(listaJugadores)==0 || ll_isEmpty(listaSelecciones)==0 || ll_isEmpty(listaConvocados)==0) && banderaCase8==1){
+            	if((ll_isEmpty(listaJugadores)==0 && ll_isEmpty(listaSelecciones)==0 && ll_isEmpty(listaConvocados)==0) && banderaCase8==1){
 					controller_cargarJugadoresDesdeBinario("JugadoresConvocados.bin",listaConvocados);
-					//controller_listarJugadores(listaConvocados);
 					controller_listarJugadoresYSeleccion(listaConvocados,listaSelecciones);
             	}else{
-            		printf("\nError, no se puede acceder si no hay jugadores y selecciones cargadas o si no accedio al item 8\n");
+            		printf("\nError, no hay jugadores para cargar al archivo\n");
             	}
 
             	break;

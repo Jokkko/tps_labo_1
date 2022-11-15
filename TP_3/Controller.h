@@ -143,3 +143,10 @@ int controller_listarJugadoresConvocados(LinkedList* pArrayListJugador,LinkedLis
 /// \param pArrayListConvocados lista de los jugadores convocados
 /// \return devuelve -1 en caso de error y 1 en caso de exito
 int controller_filtrarJugadoresConvocados(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion, LinkedList* pArrayListConvocados );
+
+/// \fn int controller_detectarConvocados(LinkedList*)
+/// \brief Funcion que se encarga de detectar si hay jugadores convocados
+///
+/// \param pArrayListSeleccion lista de las selecciones disponibles
+/// \return devuelve -1 en caso de error, 0 en caso de que no haya jugadores convocados, o 1 si hay jugadores convocados en almenos una seleccion
+int controller_detectarConvocados(LinkedList* pArrayListSeleccion);

@@ -201,7 +201,7 @@ int getNombre(char *string,int SIZE,char *mensaje){
 
 	for(int i=0;i<largo;i++){
 
-		if( (string[i] >= 65 && string[i] <= 90) || (string[i] >= 97 && string[i] <= 122) || (string[i] ==32) ){
+		if( (string[i] >= 65 && string[i] <= 90) || (string[i] >= 97 && string[i] <= 122) || (string[0] !=32 && string[i]==32)){
 			retorno=0;
 		}else{
 			retorno=-1;

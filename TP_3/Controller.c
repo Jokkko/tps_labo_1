@@ -86,18 +86,35 @@ int controller_agregarJugador(LinkedList* pArrayListJugador)
 		if(pArrayListJugador!= NULL){
 			retorno =1;
 			do{
+				if(error==-1){
+					printf("\nERROR REINTENTE\n");
+				}
 				error=getPosicion(posicionAux,30,"Ingrese posicion del jugador (Portero, Defensa central, Lateral izquierdo, Lateral derecho, Pivote, Mediocentro, Mediocentro ofensivo, Extremo izquierdo, Mediapunta, Delantero centro, Extremo derecho, Interior derecho o Interior izquierdo): \n");
+
 			}while(error==-1);
+
+
 			do{
+
 				getString(edadAux,10,"Ingrese una edad mayor o igual a 18 anios y menor a 100: ");
+
 				if(esNumerica(edadAux)){
 					error=atoi(edadAux);
+					if(error < 18 || error > 99){
+						printf("\nERROR REINTENTE\n");
+					}
 				}
 			}while(error < 18 || error > 99);
 			do{
+				if(error==-1){
+					printf("\nERROR REINTENTE\n");
+				}
 				error=getNombre(nombreCompletoAux,100,"Ingrese el nombre del jugador: ");
 			}while(error==-1);
 			do{
+				if(error==-1){
+					printf("\nERROR REINTENTE\n");
+				}
 				error=getNacionalidad(nacionalidadAux,70,"Ingrese nacionalidad del jugador (Argentino, Brasilero, Uruguayo, Portugues, Ingles, Aleman, Mexicano, Estado Unidense, Camerunes, Senegales, Australiano o Qatari): \n");
 			}while(error==-1);
 				fflush(stdin);
@@ -307,24 +324,36 @@ int controller_editarJugador(LinkedList* pArrayListJugador)
 			switch(opcionModificar){
 			case 1:
 				do{
+					if(error==-1){
+						printf("\nERROR REINTENTE\n");
+					}
 					error=getNombre(nombreCompletoAux,100,"Ingrese el nombre del jugador: ");
 				}while(error==-1);
 				jug_setNombreCompleto(pJugador,nombreCompletoAux);
 				break;
 			case 2:
 				do{
+					if(error==-1){
+						printf("\nERROR REINTENTE\n");
+					}
 					error=utn_getNumero(&edadAux,"Ingrese una edad mayor o igual a 18 anios y menor a 100: ","Ingrese edad valida",18,99,1);
 				}while(error==-1);
 				jug_setEdad(pJugador,edadAux);
 				break;
 			case 3:
 				do{
+					if(error==-1){
+						printf("\nERROR REINTENTE\n");
+					}
 					error=getPosicion(posicionAux,30,"Ingrese posicion del jugador (Portero, Defensa central, Lateral izquierdo, Lateral derecho, Pivote, Mediocentro, Mediocentro ofensivo, Extremo izquierdo, Mediapunta, Delantero centro, Extremo derecho, Interior derecho o Interior izquierdo): \n");
 				}while(error==-1);
 				jug_setPosicion(pJugador,posicionAux);
 				break;
 			case 4:
 				do{
+					if(error==-1){
+						printf("\nERROR REINTENTE\n");
+					}
 					error=getNacionalidad(nacionalidadAux,70,"Ingrese nacionalidad del jugador (Argentino, Brasilero, Uruguayo, Portugues, Ingles, Aleman, Mexicano, Estado Unidense, Camerunes, Senegales, Australiano o Qatari): \n");
 				}while(error==-1);
 				jug_setNacionalidad(pJugador,nacionalidadAux);
@@ -485,10 +514,15 @@ int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJu
 		archivo = fopen(path,"wb");
 		largoll = ll_len(pArrayListJugador);
 		if(archivo!=NULL){
-			for(int i=0;i<largoll;i++){
-				pJugador = ll_get(pArrayListJugador,i);
+			if(largoll>0){
+				for(int i=0;i<largoll;i++){
+					pJugador = ll_get(pArrayListJugador,i);
 
-				fwrite(pJugador,sizeof(Jugador),1,archivo);
+					fwrite(pJugador,sizeof(Jugador),1,archivo);
+				}
+			}else{
+				printf("\nNo hay jugadores para cargar pertenecientes a esa confederacion\n");
+				retorno=-1;
 			}
 
 			fclose(archivo);
@@ -519,6 +553,9 @@ int controller_filtrarJugadoresConvocados(LinkedList* pArrayListJugador, LinkedL
 		largollSel = ll_len(pArrayListSeleccion);
 		ll_clear(pArrayListConvocados);
 		do{
+			if(error==-1){
+				printf("\nERROR REINTENTE\n");
+			}
 			error = getConfederacion(confeAux,30,"Ingrese la confederacion a filtrar AFC, CAF, CONCACAF, CONMEBOL, UEFA: ");
 			fflush(stdin);
 		}while(error==-1);
@@ -747,6 +784,30 @@ int controller_convocarJugadores(LinkedList* pArrayListJugador,LinkedList* pArra
 				selec_setConvocados(pSeleccion,cantConvocados);
 				printf("Convocado con exito.\n");
 			}
+		}
+	}
+	return retorno;
+}
+
+
+int controller_detectarConvocados(LinkedList* pArrayListSeleccion){
+
+	int largollSel;
+	Seleccion* pSeleccion;
+	int cantConvocados;
+	int retorno=-1;
+	if(pArrayListSeleccion !=NULL){
+		retorno =0;
+	  	largollSel=ll_len(pArrayListSeleccion);
+
+		for(int i=0;i<largollSel;i++){
+			pSeleccion=(Seleccion*)ll_get(pArrayListSeleccion,i);
+			selec_getConvocados(pSeleccion,&cantConvocados);
+			if(cantConvocados!=0){
+				retorno =1;
+				break;
+			}
+
 		}
 	}
 	return retorno;
